@@ -1,0 +1,22 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h4 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الحالة الاجتماعية المحددة</h4>
+    <form action="/const/maritalstatus/{{$marital_statuses -> id}}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label class="form-label"> الحالة الاجتماعية</label>
+            <input type="text" class="form-control" id="marital_status" name="marital_status" value="{{$marital_statuses -> marital_status}}">
+        </div>
+        <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label"> الحالة الاجتماعية باللغة الانكليزية</label>
+            <input type="text" class="form-control" id="marital_status_en" name="marital_status_en" value="{{$marital_statuses -> marital_status_en}}">
+        </div>
+        <div class="form-floating">
+            <button type="submit" class="block">حفظ التعديلات</button>
+        </div>
+    </form>
+</div>
+@endsection

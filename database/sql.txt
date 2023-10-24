@@ -1,0 +1,81 @@
+INSERT INTO `branches` (`branch`, `branch_en`) 
+VALUES ('دمشق', 'Damascus'), 
+	   ('حلب', 'Aleppo'), 
+       ('ريف دمشق', 'Rural Damascus'), 
+       ('حمص', 'Homs'), 
+       ('حماة', 'Hama'), 
+       ('اللاذقية', 'Lattakia'), 
+       ('إدلب', 'Idleb'), 
+       ('الحسكة', 'Al-Hasakeh'), 
+       ('دير الزور', 'Deir-ez-Zor'), 
+       ('طرطوس', 'Tartous'), 
+       ('الرقة', 'Ar-Raqqa'), 
+       ('درعا', 'Dar\'a'), 
+       ('السويداء', 'As-Sweida'), 
+       ('القنيطرة', 'Quneitra');
+
+INSERT INTO `sub_branches` (`sub_branch`, `sub_branch_en`, branch_id) 
+VALUES ('سلمية', 'Salamia', 5), 
+	   ('سقيلبية', 'Suqailabia', 5), 
+       ('مصياف', 'Mosiaf', 5), 
+       ('شطحة', 'Shatha', 5);
+
+INSERT INTO `departments` (department, department_en, department_short) 
+VALUES ('مستوصف العلمين', 'Al alamin Clinic', ''), 
+	   ('الديوان', 'Archaive', ''), 
+       ('المساعدات النقدية والقسائم', 'Cash and Voucher Assistance', 'CVA'), 
+       ('وحدة إدارة الكوارث', 'Disaster Management Unit', 'DMU'),
+       ('وحدة إدارة الكوارث - الإغاثة', 'Disaster Management Unit - Relief', 'DMU'),
+       ('وحدة إدارة الكوارث - التقييم', 'Disaster Management Unit - Evaluation', 'DMU'),
+       ('وحدة إدارة الكوارث - التوزيع', 'Disaster Management Unit - Distribution', 'DMU'),
+       ('وحدة الإسعاف والطوارئ', 'Emergency medical services', 'EMS'),
+       ('المالي', 'Financial', ''),
+       ('المرآب', 'Garage', ''),
+       ('الموارد البشرية', 'Human Resources', 'HR'),
+       ('الدعم الإنساني', 'Humanitarian Support', 'HS'),
+       ('إدارة المعلومات', 'Information Management', 'IM'),
+       ('تكنولوجيا المعلومات', 'Information Technonolgy', 'IM'),
+       ('المساعدات القانونية', 'Legal Aid', 'LA'),
+       ('سبل العيش', 'Livelihood', ''),
+       ('الإدارة', 'Management', ''),
+       ('التواصل والأعلام', 'Media And Communication', ''),
+       ('العيادة المتنقلة', 'Mobile Clinic', 'MC'),
+       ('الفريق الجوال للعلاج الفيزيائي', 'Mobile physiotherapy team', 'MP'),
+       ('العمليات', 'Operation', 'OPS'),
+       ('المشتريات', 'Purchases', ''),
+	('وحدة إدارة الكوارث - الشكاوي', 'Disaster Management Unit - complaints', 'DMU'),
+       ('وحدة إدارة الكوارث - التسجيل', 'Disaster Management Unit - Registration', 'DMU'),
+       ('الصحة الانجابية', 'Reproductive Health', 'RH'),
+       ('التوعية من مخاطر الألغام', 'Risk Education', 'RE'),
+       ('مستوصف سلمية', 'Salamia Clinic', ''),
+       ('مستوصف سلحب', 'Salhab Clinic', ''),
+       ('مستوصف شطحة', 'Shathah Clinic', ''),
+       ('وحدة إدارة الكوارث - الايواء', 'Disaster Management Unit - Shelter', 'DMU'),
+       ('الاتصالات', 'Telecommunications', 'Telcom'),
+       ('إعادة تقييم الاحتياجات الأسرية', 'Vulnerable Needs Review', 'VNR'),
+       ('المياه وإعادة التأهيل', 'Water and Construction', ''),
+       ('وحدة إدارة الكوارث - المستودعات', 'Disaster Management Unit - Warehouses', 'DMU');
+
+INSERT INTO certificates (certificate, certificate_en) 
+VALUES  ('غير متعلم', 'Illiterate'), 
+		(' شهادة ابتدائية', 'Primary'),
+        ('شهادة إعدادية', 'Elementary'),
+        ('شهادة ثانوية', 'Secondary'),
+        ('طالب جامعي', 'College Student'),
+        ('معهد', 'Institute'),
+        ('شهادة جامعية', 'Bachelor'),
+        ('دبلوم', 'Diploma'),
+        ('ماجستير', 'Master'),
+        ('دكتوراه', 'Ph.D');
+
+INSERT INTO geners (gener, gener_en) 
+VALUES  ('ذكر', 'Male'), 
+		('أنثى', 'Female');
+
+INSERT INTO jop_titles (jop_title, jop_title_en) 
+VALUES  ('متطوع', 'Volunteer'), 
+		('موظف', 'Employee');
+
+INSERT INTO marital_statuses (marital_status, marital_status_en) 
+VALUES  ('أعزب', 'Single'), 
+		('متزوج', 'Married');

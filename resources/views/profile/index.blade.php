@@ -24,11 +24,23 @@
             <div class="badge bg-warning text-dark">{{$profile-> jop_title -> jop_title}}</div>
         @endif 
         <div class="badge bg-success">فعال</div>
-        {{-- <div class="badge bg-danger">غير فعال</div> --}}
+        <div class="badge bg-danger">غير فعال</div>
+        <br>
+        <span class="fs-6 my-5"> {{$profile-> department->department . ' - ' . $profile->department->department_en . ' - ' . $profile->department->department_short}}</span>
+        <br>
+        <span class="fs-6"> {{$profile-> position . ' - ' . $profile->position_en}}</span>
     </div>
-    <div class="pe-2">
-        {{$profile-> department->department . ' - ' . $profile->department->department_en . ' - ' . $profile->department->department_short}}
+    <div>
+        <form action="{{action('BranchController@destroy', $profile -> id)}}" method="POST">
+            @csrf
+            @method("DELETE")
+            <a href="/const/branch/{{$profile -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
+            <a href="/const/branch/{{$profile -> id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
+            <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الفرع ؟')"><i class="fa fa-trash"></i></button>  
+        </form> 
     </div>
+    {{-- <div class="pe-2"> --}}
+    {{-- </div> --}}
 </div>
 @endforeach
 

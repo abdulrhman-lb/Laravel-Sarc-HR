@@ -19,7 +19,7 @@ class ProfilesController extends Controller
     public function index()
     {     
         
-        return view('profile.profilelist')->with('profiles', Profile::all());
+        return view('profile.index')->with('profiles', Profile::all());
     }
 
     public function create()
@@ -39,7 +39,7 @@ class ProfilesController extends Controller
         if ($pro == null) {
             return view('profile.create')->with('lists' , $par);
         } else {
-            return view('profile.myprofile')->with('profile' , $pro);
+            return view('profile.show')->with('profile' , $pro);
         }
         
     }
@@ -104,7 +104,7 @@ class ProfilesController extends Controller
         if ($pro == null) {
            return view('profile.redi') ;
         } else {
-            return view('profile.myprofile')->with('profile' , $pro);
+            return view('profile.show')->with('profile' , $pro);
         }
         
         

@@ -11,7 +11,7 @@
         </div>
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">أدخل الحالة الاجتماعية باللغة الانكليزية</label>
-            <input type="text" class="form-control" id="maritalstatus_en" name="maritalstatus_en" >
+            <input type="text" class="form-control" id="marital_status_en" name="marital_status_en" >
         </div>
         <div class="form-floating">
             <button type="submit" class="block">حفظ</button>

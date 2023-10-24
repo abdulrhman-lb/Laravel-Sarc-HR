@@ -20,8 +20,8 @@ class MaritalStatusController extends Controller
     public function store(Request $request)
     {
         marital_status::create([
-            'maritalstatus'=>$request -> Input('maritalstatus'),
-            'maritalstatus_en'=> $request -> input('maritalstatus_en')
+            'marital_status'=>$request -> Input('marital_status'),
+            'marital_status_en' => $request -> input('marital_status_en')
         ]);
         return redirect('const/maritalstatus');
     }
@@ -40,8 +40,8 @@ class MaritalStatusController extends Controller
     {   
         marital_status::where('id', $id)
             ->update([
-                'maritalstatus' => $request -> input('maritalstatus'),
-                'maritalstatus_en' => $request -> input('maritalstatus_en')
+                'marital_status' => $request -> input('marital_status'),
+                'marital_status_en' => $request -> input('marital_status_en')
             ]);
         return redirect('const/maritalstatus') -> with('message', 'تم التعديل على الحالة الاجتماعية بنجاح');
     }

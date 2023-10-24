@@ -6,7 +6,7 @@
     <table class="table table-bordered">   
       <tr class="pt-3 ">
         <td class="fw-bold centered-content">الصفة الهلالية</td>
-        <td class="centered-content">{{$jop_title-> jop_title}}</td>
+        <td class="centered-content">{{$jop_titles-> jop_title}}</td>
       </tr>
       <tr class="pt-3 ">
         <td class="fw-bold centered-content">الصفة الهلالية باللغة الانكليزية</td>

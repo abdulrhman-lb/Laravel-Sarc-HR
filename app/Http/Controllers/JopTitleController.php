@@ -9,7 +9,7 @@ class JopTitleController extends Controller
 {
     public function index()
     {
-        return view('const.joptitle.index')->with('joptitles', jop_title::all());
+        return view('const.joptitle.index')->with('jop_titles', jop_title::all());
     }
 
     public function create()
@@ -20,8 +20,8 @@ class JopTitleController extends Controller
     public function store(Request $request)
     {
         jop_title::create([
-            'joptitle'=>$request -> Input('joptitle'),
-            'joptitle_en'=> $request -> input('joptitle_en')
+            'jop_title'=>$request -> Input('jop_title'),
+            'jop_title_en'=> $request -> input('jop_title_en')
         ]);
         return redirect('const/joptitle');
     }
@@ -40,8 +40,8 @@ class JopTitleController extends Controller
     {   
         jop_title::where('id', $id)
             ->update([
-                'joptitle' => $request -> input('joptitle'),
-                'joptitle_en' => $request -> input('joptitle_en')
+                'jop_title' => $request -> input('jop_title'),
+                'jop_title_en' => $request -> input('jop_title_en')
             ]);
         return redirect('const/joptitle') -> with('message', 'تم التعديل على الصفة الهلالية بنجاح');
     }

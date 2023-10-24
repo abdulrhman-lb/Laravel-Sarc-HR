@@ -13,6 +13,7 @@
                 <th class="centered-content">#</th>
                 <th class="centered-content">اسم القسم</th>
                 <th class="centered-content">اسم القسم باللغة الانكليزية</th>
+                <th class="centered-content">اختصار اسم القسم</th>
                 <th class="centered-content" colspan="3"><a href="/const/department/create"><button type="button" class="btn btn-success my-1">إضافة قسم جديد</button></a></th>
             </tr>
             @php
@@ -26,6 +27,7 @@
                     <td class="fw-bold centered-content">{{$count}}</td>
                     <td class="centered-content">{{$department -> department}}</td>
                     <td class="centered-content">{{$department -> department_en}}</td>
+                    <td class="centered-content">{{$department -> department_short}}</td>
                     <td class="centered-content">
                         <form action="{{action('DepartmentController@destroy', $department -> id)}}" method="POST">
                             @csrf

@@ -22,7 +22,8 @@ class SubBranchController extends Controller
     {
         sub_branch::create([
             'sub_branch'=>$request -> Input('sub_branch'),
-            'sub_branch_en'=> $request -> input('sub_branch_en')
+            'sub_branch_en'=> $request -> input('sub_branch_en'),
+            'branch_id'=> $request -> input('branch_id'),
         ]);
         return redirect('const/subbranch');
     }
@@ -42,7 +43,9 @@ class SubBranchController extends Controller
         sub_branch::where('id', $id)
             ->update([
                 'sub_branch' => $request -> input('sub_branch'),
-                'sub_branch_en' => $request -> input('sub_branch_en')
+                'sub_branch_en' => $request -> input('sub_branch_en'),
+                'branch_id' => $request -> input('branch_id'),
+
             ]);
         return redirect('const/subbranch') -> with('message', 'تم التعديل على الشعبة بنجاح');
     }

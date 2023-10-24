@@ -21,7 +21,9 @@ class DepartmentController extends Controller
     {
         department::create([
             'department'=>$request -> Input('department'),
-            'department_en'=> $request -> input('department_en')
+            'department_en'=> $request -> input('department_en'),
+            'department_short'=> $request -> input('department_short'),
+            'coordinator_id'=> 0
         ]);
         return redirect('const/department');
     }
@@ -41,7 +43,9 @@ class DepartmentController extends Controller
         department::where('id', $id)
             ->update([
                 'department' => $request -> input('department'),
-                'department_en' => $request -> input('department_en')
+                'department_en' => $request -> input('department_en'),
+                'department_short' => $request -> input('department_short'),
+                'coordinator_id'=> 0
             ]);
         return redirect('const/department') -> with('message', 'تم التعديل على القسم بنجاح');
     }

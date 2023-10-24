@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class sub_branch extends Model
 {
     use HasFactory;
-    protected $fillable = ['sub_branch','sub_branch_en'];
+    protected $fillable = ['sub_branch','sub_branch_en','branch_id'];
     public function profile() {
         return $this->hasMany(profile::class);
     }

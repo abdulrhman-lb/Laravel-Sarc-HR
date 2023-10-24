@@ -27,7 +27,7 @@
                     <td class="centered-content">{{$jop_title -> jop_title}}</td>
                     <td class="centered-content">{{$jop_title -> jop_title_en}}</td>
                     <td class="centered-content">
-                        <form action="{{action('JopTitleController@destroy', $joptitle -> id)}}" method="POST">
+                        <form action="{{action('JopTitleController@destroy', $jop_title -> id)}}" method="POST">
                             @csrf
                             @method("DELETE")
                             <a href="/const/joptitle/{{$jop_title -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>

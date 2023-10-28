@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container containerlist">
+    {{-- <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
@@ -42,6 +42,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+    <h4 class="d-flex fw-bold justify-content-center py-3">لا يمكن استعادة كلمة المرور حالياً . الرجاء الاتصال بمسؤول النظام</h4>
 </div>
 @endsection

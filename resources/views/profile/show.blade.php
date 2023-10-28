@@ -26,7 +26,7 @@
             }
           @endphp
         <tr class="pt-3 ">
-            <td class="centered-content pb-3" colspan="4"><img src="/images/{{$image}}" style="width:175px; float: none;" alt="..."><span class="ribbon">NEW</span></td>
+            <td class="centered-content pb-3" colspan="4"><img src="/images/{{$image}}" style=" float: none;" class="img-pro" alt="..."></td>
         </tr>
         <tr class="pt-3 ">
           <td class="fw-bold centered-content">الفرع</td>
@@ -127,7 +127,7 @@
         <tr class="pt-3 ">
           <td class="fw-bold centered-content">تفاصيل الشهادة العلمية </td>
           <td class="centered-content">{{$profile -> certificate_details}}</td>
-          <td class="centered-content">{{$profile -> certificate_details}}</td>
+          <td class="centered-content">-</td>
           <td class="fw-bold centered-content">Certificate Details</td>
         </tr>
         <tr class="pt-3 ">
@@ -180,7 +180,7 @@
         </tr>
     </table>
     <div class="form-floating">
-      <button type="submit" class="block">تعديل الملف الشخصي</button>
+      <a href="/profile/{{$profile -> id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
   </div>
     {{-- -------------------------------------------------------------------------------- --}}
 </div>

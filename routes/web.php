@@ -11,22 +11,26 @@ use App\Http\Controllers\GenerController;
 use App\Http\Controllers\MaritalStatusController;
 use App\Http\Controllers\JopTitleController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+use Illuminate\Support\Facades\Auth;
+
 
 
 route::get('/get-sub', 'SubBranchController@getsub');
-
-route::resource('/profile',ProfilesController::class);
-route::resource('/const/branch',BranchController::class);
-Route::get('branch_export',[BranchController::class, 'get_branch_data'])->name('student.export');
-route::resource('/const/subbranch',SubBranchController::class);
-route::resource('/const/certificate',CertificateController::class);
-route::resource('/const/gener',GenerController::class);
-route::resource('/const/maritalstatus',MaritalStatusController::class);
-route::resource('/const/joptitle',JopTitleController::class);
-route::resource('/const/department',DepartmentController::class);
-
-Route::get('/', function () { return view('index'); });
-
 Auth::routes();
+route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
+    route::resource('/branch',BranchController::class);
+    route::resource('/subbranch',SubBranchController::class);
+    route::resource('/certificate',CertificateController::class);
+    route::resource('/gener',GenerController::class);
+    route::resource('/maritalstatus',MaritalStatusController::class);
+    route::resource('/joptitle',JopTitleController::class);
+    route::resource('/department',DepartmentController::class);
+});
+route::resource('/profile',ProfilesController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+route::get('change-password', 'Auth\ChangePasswordController@change_password') -> name('change_password');
+route::post('update-password', 'Auth\ChangePasswordController@update_password') -> name('update_password');
+
+route::get('/', function () { return view('index'); });
+// route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -15,7 +15,7 @@
     }
 @endphp      
 <div class="container containerlist">
-    <img src="/images/{{$image}}" alt="Avatar" style="width:90px">
+    <img src="/images/{{$image}}" alt="Avatar" class="img-pro-show">
     <div>
         <span class="fw-bold">{{$profile -> first_name . ' ' . $profile -> father_name . ' ' . $profile -> last_name}}</span>
         @if ($profile -> jop_title_id == 1)
@@ -31,12 +31,12 @@
         <span class="fs-6"> {{$profile-> position . ' - ' . $profile->position_en}}</span>
     </div>
     <div>
-        <form action="{{action('BranchController@destroy', $profile -> id)}}" method="POST">
+        <form action="{{action('ProfilesController@destroy', $profile -> id)}}" method="POST">
             @csrf
             @method("DELETE")
-            <a href="/const/branch/{{$profile -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
-            <a href="/const/branch/{{$profile -> id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
-            <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الفرع ؟')"><i class="fa fa-trash"></i></button>  
+            <a href="/profile/{{$profile -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
+            <a href="/profile/{{$profile -> id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
+            <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الملف الشخصي ؟')"><i class="fa fa-trash"></i></button>  
         </form> 
     </div>
     {{-- <div class="pe-2"> --}}

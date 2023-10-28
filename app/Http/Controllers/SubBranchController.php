@@ -35,7 +35,9 @@ class SubBranchController extends Controller
     
     public function edit(string $id)
     {
-        return view('const.subbranch.edit')->with('sub_branches', sub_branch::where('id', $id)->first());
+        $par = ['branches' => branch::orderBy('branch' , 'ASC')->get(),
+        'sub_branches' => sub_branch::where('id', $id)->first()];
+        return view('const.subbranch.edit')->with('list', $par);
     }
 
     public function update(Request $request, string $id)
@@ -56,4 +58,12 @@ class SubBranchController extends Controller
         $po -> delete();
         return redirect('const/subbranch') -> with('message', 'تم حذف الشعبة بنجاح');
     }
+
+    public function getsub(Request $request)
+    {
+        $branchId = $request->id;
+        $sub_branches = sub_branch::where('branch_id', $branchId)->get();
+        return response()->json($sub_branches);
+    }
+       
 }

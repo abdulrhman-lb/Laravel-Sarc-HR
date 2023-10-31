@@ -19,6 +19,10 @@ class BranchController extends Controller
 
     public function store(Request $request)
     {
+        $request -> validate([
+            'branch' => ['required', 'string', 'unique:branches'],
+            'branch_en' => ['required', 'string', 'unique:branches'],
+        ]);
         branch::create([
             'branch'=>$request -> Input('branch'),
             'branch_en'=> $request -> input('branch_en')
@@ -37,7 +41,11 @@ class BranchController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {   
+    {
+        $request -> validate([
+            'branch' => 'required|string|unique:branches,branch,' . $id,
+            'branch_en' => 'required|string|unique:branches,branch_en,' . $id,
+        ]);
         branch::where('id', $id)
             ->update([
                 'branch' => $request -> input('branch'),

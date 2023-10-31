@@ -12,12 +12,17 @@ use App\Http\Controllers\MaritalStatusController;
 use App\Http\Controllers\JopTitleController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\ActiveMiddleware;
 
+
+Route::resource('/profile', ProfilesController::class)->middleware('isactive');
 
 
 route::get('/get-sub', 'SubBranchController@getsub');
 Auth::routes();
+
 route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
     route::resource('/branch',BranchController::class);
     route::resource('/subbranch',SubBranchController::class);
@@ -27,10 +32,10 @@ route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
     route::resource('/joptitle',JopTitleController::class);
     route::resource('/department',DepartmentController::class);
 });
-route::resource('/profile',ProfilesController::class);
+
 
 route::get('change-password', 'Auth\ChangePasswordController@change_password') -> name('change_password');
 route::post('update-password', 'Auth\ChangePasswordController@update_password') -> name('update_password');
 
 route::get('/', function () { return view('index'); });
-// route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+route::get('/upload/image', [ImageController::class,'ImageUpload'])->name('ImageUpload');

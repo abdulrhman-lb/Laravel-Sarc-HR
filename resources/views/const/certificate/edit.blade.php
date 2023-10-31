@@ -8,11 +8,21 @@
         @method('PUT')
         <div class="mb-3">
             <label class="form-label">اسم الشهادة العلمية</label>
-            <input type="text" class="form-control" id="certificate" name="certificate" value="{{$certificates -> certificate}}">
+            <input type="text" class="form-control @error('certificate') is-invalid @enderror" id="certificate" name="certificate" value="{{$certificates -> certificate}}">
+            @error('certificate')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label"> اسم الشهادة العلمية باللغة الانكليزية</label>
-            <input type="text" class="form-control" id="certificate_en" name="certificate_en" value="{{$certificates -> certificate_en}}">
+            <input type="text" class="form-control @error('certificate_en') is-invalid @enderror" id="certificate_en" name="certificate_en" value="{{$certificates -> certificate_en}}">
+            @error('certificate_en')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="form-floating">
             <button type="submit" class="block">حفظ التعديلات</button>

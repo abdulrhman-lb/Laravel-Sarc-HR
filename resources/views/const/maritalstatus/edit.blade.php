@@ -8,11 +8,21 @@
         @method('PUT')
         <div class="mb-3">
             <label class="form-label"> الحالة الاجتماعية</label>
-            <input type="text" class="form-control" id="marital_status" name="marital_status" value="{{$marital_statuses -> marital_status}}">
+            <input type="text" class="form-control @error('marital_status') is-invalid @enderror" id="marital_status" name="marital_status" value="{{$marital_statuses -> marital_status}}">
+            @error('marital_status')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label"> الحالة الاجتماعية باللغة الانكليزية</label>
-            <input type="text" class="form-control" id="marital_status_en" name="marital_status_en" value="{{$marital_statuses -> marital_status_en}}">
+            <input type="text" class="form-control @error('marital_status_en') is-invalid @enderror" id="marital_status_en" name="marital_status_en" value="{{$marital_statuses -> marital_status_en}}">
+            @error('marital_status_en')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="form-floating">
             <button type="submit" class="block">حفظ التعديلات</button>

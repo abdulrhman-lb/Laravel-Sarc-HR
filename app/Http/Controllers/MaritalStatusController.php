@@ -19,6 +19,10 @@ class MaritalStatusController extends Controller
 
     public function store(Request $request)
     {
+        $request -> validate([
+            'marital_status' => ['required', 'string', 'unique:marital_statuses'],
+            'marital_status_en' => ['required', 'string', 'unique:marital_statuses'],
+        ]);
         marital_status::create([
             'marital_status'=>$request -> Input('marital_status'),
             'marital_status_en' => $request -> input('marital_status_en')
@@ -27,7 +31,7 @@ class MaritalStatusController extends Controller
     }
 
     public function show(string $id)
-    {   
+    {
         return view('const.maritalstatus.show')->with('marital_statuses', marital_status::where('id', $id)->first());
     }
     
@@ -37,7 +41,11 @@ class MaritalStatusController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {   
+    {
+        $request -> validate([
+            'marital_status' => 'required|string|unique:marital_statuses,marital_status,' . $id,
+            'marital_status_en' => 'required|string|unique:marital_statuses,marital_status_en,' . $id,
+        ]);
         marital_status::where('id', $id)
             ->update([
                 'marital_status' => $request -> input('marital_status'),
@@ -47,7 +55,7 @@ class MaritalStatusController extends Controller
     }
 
     public function destroy(string $id)
-    {   
+    {
         $po = marital_status::find($id);
         $po -> delete();
         return redirect('const/maritalstatus') -> with('message', 'تم حذف الحالة الاجتماعية بنجاح');

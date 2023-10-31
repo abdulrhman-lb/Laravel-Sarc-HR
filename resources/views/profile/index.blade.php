@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-
+@if (session()->has('message'))
+    <div class="container alert alert-success" role="alert">
+        {{session()->get('message')}}
+    </div> 
+@endif
 <div class="container">
     <h4 class="d-flex fw-bold justify-content-center pb-3">قائمة الموظفين</h4>
 </div>
@@ -34,8 +38,8 @@
         <form action="{{action('ProfilesController@destroy', $profile -> id)}}" method="POST">
             @csrf
             @method("DELETE")
-            <a href="/profile/{{$profile -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
-            <a href="/profile/{{$profile -> id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
+            <a href="/profile/{{$profile -> user_id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
+            <a href="/profile/{{$profile -> user_id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
             <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الملف الشخصي ؟')"><i class="fa fa-trash"></i></button>  
         </form> 
     </div>

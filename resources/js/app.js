@@ -20,6 +20,23 @@ $('#branch_id').on('change', function() {
 });
 
 
+const profileImageInput = document.getElementById("image");
+const previewButton = document.getElementById("choose-image");
+const imagePreview = document.getElementById("image_preview");
+
+profileImageInput.addEventListener("change", function () {
+    const file = profileImageInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        imagePreview.src = reader.result;
+        imagePreview.style.display = "block";
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+});
+
 
 import './bootstrap';
 

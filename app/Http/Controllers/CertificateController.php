@@ -19,6 +19,10 @@ class CertificateController extends Controller
 
     public function store(Request $request)
     {
+        $request -> validate([
+            'certificate' => ['required', 'string', 'unique:certificates'],
+            'certificate_en' => ['required', 'string', 'unique:certificates'],
+        ]);
         certificate::create([
             'certificate'=>$request -> Input('certificate'),
             'certificate_en'=> $request -> input('certificate_en')
@@ -27,7 +31,7 @@ class CertificateController extends Controller
     }
 
     public function show(string $id)
-    {   
+    {
         return view('const.certificate.show')->with('certificates', certificate::where('id', $id)->first());
     }
     
@@ -37,7 +41,11 @@ class CertificateController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {   
+    {
+        $request -> validate([
+            'certificate' => 'required|string|unique:certificates,certificate,' . $id,
+            'certificate_en' => 'required|string|unique:certificates,certificate_en,' . $id,
+        ]);
         certificate::where('id', $id)
             ->update([
                 'certificate' => $request -> input('certificate'),
@@ -47,7 +55,7 @@ class CertificateController extends Controller
     }
 
     public function destroy(string $id)
-    {   
+    {
         $po = certificate::find($id);
         $po -> delete();
         return redirect('const/certificate') -> with('message', 'تم حذف الشهادة العلمية بنجاح');

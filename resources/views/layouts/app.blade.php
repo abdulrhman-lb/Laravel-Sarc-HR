@@ -19,7 +19,6 @@
 
 </head>
 <body>
-    
     <div >
         <nav class="navbar navbar-expand-md bg-white shadow-sm " >
             <div class="container  ">
@@ -31,37 +30,40 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse fw-bold fs-6 " id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     @if (auth()-> check())
-                    <ul class="navbar-nav mr-auto text-center">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/profile/{{auth()->user()->id}}" >الملف الشخصي</a>    
-                          </li>
-                          {{-- <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                          </li> --}}
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              الثوابت
-                            </a>
-                            <ul class="dropdown-menu ">
-                              <li><a class="dropdown-item text-right" href="/const/branch">جدول الفروع</a></li>
-                              <li><a class="dropdown-item" href="/const/subbranch">جدول الشعب</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="/const/department">جدول الأقسام</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="/const/certificate">جدول الشهادات العلمية</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="/const/maritalstatus">جدول الحالة الاجتماعية</a></li>
-                              <li><a class="dropdown-item" href="/const/gener">جدول الجنس</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="/const/joptitle">جدول الصفة الهلالية</a></li>
-
+                        @if (auth()->user()-> active == '1')
+                            <ul class="navbar-nav mr-auto text-center">
+                                @if (auth()->user()-> role == '1')
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/profile" >قائمة الموظفين</a>    
+                                    </li>
+                                @endif
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/profile/{{auth()->user()->id}}" >الملف الشخصي</a>    
+                                </li>
+                                @if (auth()->user()-> role == '1')
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            الثوابت
+                                        </a>
+                                            <ul class="dropdown-menu ">
+                                                <li><a class="dropdown-item text-right" href="/const/branch">جدول الفروع</a></li>
+                                                <li><a class="dropdown-item" href="/const/subbranch">جدول الشعب</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="/const/department">جدول الأقسام</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="/const/certificate">جدول الشهادات العلمية</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="/const/maritalstatus">جدول الحالة الاجتماعية</a></li>
+                                                <li><a class="dropdown-item" href="/const/gener">جدول الجنس</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="/const/joptitle">جدول الصفة الهلالية</a></li>
+                                            </ul>
+                                    </li>
+                                @endif
                             </ul>
-                          </li>
-                    </ul>
+                        @endif
                     @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav fw-bold me-auto text-center">

@@ -20,6 +20,11 @@ class SubBranchController extends Controller
 
     public function store(Request $request)
     {
+        $request -> validate([
+            'sub_branch' => ['required', 'string', 'unique:sub_branches'],
+            'sub_branch_en' => ['required', 'string', 'unique:sub_branches'],
+            'branch_id' => ['required'],
+        ]);
         sub_branch::create([
             'sub_branch'=>$request -> Input('sub_branch'),
             'sub_branch_en'=> $request -> input('sub_branch_en'),
@@ -29,7 +34,7 @@ class SubBranchController extends Controller
     }
 
     public function show(string $id)
-    {   
+    {
         return view('const.subbranch.show')->with('sub_branches', sub_branch::where('id', $id)->first());
     }
     
@@ -41,7 +46,12 @@ class SubBranchController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {   
+    {
+        $request -> validate([
+            'sub_branch' => 'required|string|unique:sub_branches,sub_branch,' . $id,
+            'sub_branch_en' => 'required|string|unique:sub_branches,sub_branch_en,' . $id,
+            'branch_id' => 'required',
+        ]);
         sub_branch::where('id', $id)
             ->update([
                 'sub_branch' => $request -> input('sub_branch'),
@@ -53,7 +63,7 @@ class SubBranchController extends Controller
     }
 
     public function destroy(string $id)
-    {   
+    {
         $po = sub_branch::find($id);
         $po -> delete();
         return redirect('const/subbranch') -> with('message', 'تم حذف الشعبة بنجاح');

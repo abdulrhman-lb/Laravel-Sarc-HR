@@ -19,6 +19,10 @@ class GenerController extends Controller
 
     public function store(Request $request)
     {
+        $request -> validate([
+            'gener' => ['required', 'string', 'unique:geners'],
+            'gener_en' => ['required', 'string', 'unique:geners'],
+        ]);
         gener::create([
             'gener'=>$request -> Input('gener'),
             'gener_en'=> $request -> input('gener_en')
@@ -27,7 +31,7 @@ class GenerController extends Controller
     }
 
     public function show(string $id)
-    {   
+    {
         return view('const.gener.show')->with('geners', gener::where('id', $id)->first());
     }
     
@@ -37,7 +41,11 @@ class GenerController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {   
+    {
+        $request -> validate([
+            'gener' => 'required|string|unique:geners,gener,' . $id,
+            'gener_en' => 'required|string|unique:geners,gener_en,' . $id,
+        ]);
         gener::where('id', $id)
             ->update([
                 'gener' => $request -> input('gener'),

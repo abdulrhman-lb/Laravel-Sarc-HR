@@ -180,7 +180,7 @@
         </tr>
     </table>
     <div class="form-floating">
-      <a href="/profile/{{$profile -> id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
+      <a href="/profile/{{$profile -> user_id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
   </div>
     {{-- -------------------------------------------------------------------------------- --}}
 </div>

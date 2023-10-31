@@ -140,7 +140,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ الولادة</label>
-          <input type="date" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ old('birth_date') }}" >
+          <input type="date" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ old('birth_date') }}">
           @error('birth_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

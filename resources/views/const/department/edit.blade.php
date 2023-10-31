@@ -8,15 +8,30 @@
         @method('PUT')
         <div class="mb-3">
             <label class="form-label"> اسم القسم</label>
-            <input type="text" class="form-control" id="department" name="department" value="{{$departments -> department}}">
+            <input type="text" class="form-control @error('department') is-invalid @enderror" id="department" name="department" value="{{$departments -> department}}">
+            @error('department')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label"> اسم القسم باللغة الانكليزية</label>
-            <input type="text" class="form-control" id="department_en" name="department_en" value="{{$departments -> department_en}}">
+            <input type="text" class="form-control @error('department_en') is-invalid @enderror" id="department_en" name="department_en" value="{{$departments -> department_en}}">
+            @error('department_en')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">اختصار اسم القسم</label>
-            <input type="text" class="form-control" id="department_short" name="department_short" value="{{$departments -> department_short}}">
+            <input type="text" class="form-control @error('department_short') is-invalid @enderror" id="department_short" name="department_short" value="{{$departments -> department_short}}">
+            @error('department_short')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="form-floating">
             <button type="submit" class="block">حفظ التعديلات</button>

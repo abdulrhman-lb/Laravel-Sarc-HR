@@ -19,6 +19,11 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
+        $request -> validate([
+            'department' => ['required', 'string', 'unique:departments'],
+            'department_en' => ['required', 'string', 'unique:departments'],
+            'department_short' => ['required', 'string', 'unique:departments'],
+        ]);
         department::create([
             'department'=>$request -> Input('department'),
             'department_en'=> $request -> input('department_en'),
@@ -29,7 +34,7 @@ class DepartmentController extends Controller
     }
 
     public function show(string $id)
-    {   
+    {
         return view('const.department.show')->with('departments', department::where('id', $id)->first());
     }
     
@@ -39,7 +44,12 @@ class DepartmentController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {   
+    {
+        $request -> validate([
+            'department' => 'required|string|unique:departments,department,' . $id,
+            'department_en' => 'required|string|unique:departments,department_en,' . $id,
+            'department_short' => 'required|string|unique:departments,department_short,' . $id,
+        ]);
         department::where('id', $id)
             ->update([
                 'department' => $request -> input('department'),
@@ -51,7 +61,7 @@ class DepartmentController extends Controller
     }
 
     public function destroy(string $id)
-    {   
+    {
         $po = department::find($id);
         $po -> delete();
         return redirect('const/department') -> with('message', 'تم حذف القسم بنجاح');

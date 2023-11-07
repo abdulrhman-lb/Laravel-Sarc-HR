@@ -15,18 +15,59 @@ use App\Models\marital_status;
 use App\Models\certificate;
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
  
 class ProfilesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if ((auth()->user()-> role == '1')) {
-            return view('profile.index')->with('profiles', Profile::all());
+            $active = $request->input('ac');
+            $query = Profile::query();
+            if ($active != '-') $query->whereHas('user', function ($query) use ($active)
+                {
+                    $query->where('active', $active);
+                });
+                if ($request->input('br')) {$query->where('branch_id', $request->input('br'));}
+                if ($request->input('sb')) {$query->where('sub_branch_id', $request->input('sb'));}
+                if ($request->input('dp')) {$query->where('department_id', $request->input('dp'));}
+                if ($request->input('nm')) {$query->where('first_name', 'like' , '%'.$request->input('nm').'%');}
+                if ($request->input('ln')) {$query->where('last_name', 'like' , '%'.$request->input('ln').'%');}
+                if ($request->input('gn')) {$query->where('gener_id', $request->input('gn'));}
+                if ($request->input('ms')) {$query->where('marital_status_id', $request->input('ms'));}
+                if ($request->input('cf')) {$query->where('certificate_id', $request->input('cf'));}
+                if ($request->input('cd')) {$query->where('certificate_details', $request->input('cd'));}
+                if ($request->input('jt')) {$query->where('jop_title_id', $request->input('jt'));}
+                if ($request->input('sort')) {$query->orderby($request->input('sort'), $request->input('order'));}
+
+            $par = ['branches' => branch::orderBy('branch' , 'ASC')->get(),
+            'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
+            'departments' => department::orderBy('department' , 'ASC')->get(),
+            'certificates' => certificate::get(),
+            'geners' => gener::get(),
+            'jop_titles' => jop_title::get(),
+            'marital_statuses' => marital_status::get(),
+            'profiles' => $query -> get(),
+            'branch_selected' => $request->br,
+            'sub_branch_selected' => $request->sb,
+            'department_selected' => $request->dp,
+            'first_name_selected' => $request->nm,
+            'last_name_selected' => $request->ln,
+            'gener_selected' => $request->gn,
+            'marital_status_selected' => $request->ms,
+            'certificate_selected' => $request->cf,
+            'certificate_details_selected' => $request->cd,
+            'jop_title_selected' => $request->jt,
+            'sort_selected' => $request->sort,
+            'order_selected' => $request->order,
+            'active_selected' => $request->ac,
+            ];
+            return view('profile.index')->with('lists', $par);
         } else {
             return redirect('/')->with('message', 'ليس لديك الصلاحيات لعرض هذه الصفحة');
         }
     }
-
     public function create()
     {
         if (!auth()->check()) {

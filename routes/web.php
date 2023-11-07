@@ -13,6 +13,7 @@ use App\Http\Controllers\JopTitleController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\Auth\ConfController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\ActiveMiddleware;
 
@@ -22,6 +23,9 @@ Route::resource('/profile', ProfilesController::class)->middleware('isactive');
 
 route::get('/get-sub', 'SubBranchController@getsub');
 Auth::routes();
+
+route::get('conf/{id}',[ConfController::class,'edit'])->middleware('auth', 'isactive', 'isadmin');
+route::put('conf/update/{id}',[ConfController::class,'update'])->middleware('auth', 'isactive', 'isadmin');
 
 route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
     route::resource('/branch',BranchController::class);

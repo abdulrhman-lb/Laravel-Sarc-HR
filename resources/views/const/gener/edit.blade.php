@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">استعراض بيانات الجنس المحدد</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">استعراض بيانات الجنس المحدد</h5>
     <form action="/const/gener/{{$geners -> id}}" method="POST">
         @csrf
         @method('PUT')

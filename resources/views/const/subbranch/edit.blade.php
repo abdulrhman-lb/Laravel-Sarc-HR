@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الشعبة المحددة</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الشعبة المحددة</h5>
     <form action="/const/subbranch/{{$list['sub_branches'] -> id}}" method="POST">
         @csrf
         @method('PUT')

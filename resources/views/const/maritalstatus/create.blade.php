@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">إضافة حالة اجتماعية جديدة</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">إضافة حالة اجتماعية جديدة</h5>
     <form action="/const/maritalstatus" method="POST">
         @csrf
         <div class="mb-3">

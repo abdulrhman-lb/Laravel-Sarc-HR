@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الفرع المحدد</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الفرع المحدد</h5>
     <form action="/const/branch/{{$branches -> id}}" method="POST">
         @csrf
         @method('PUT')

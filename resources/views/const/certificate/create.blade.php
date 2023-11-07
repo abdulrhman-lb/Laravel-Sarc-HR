@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">إضافة شهادة علمية جديدة</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">إضافة شهادة علمية جديدة</h5>
     <form action="/const/certificate" method="POST">
         @csrf
         <div class="mb-3">

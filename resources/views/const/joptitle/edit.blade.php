@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الصفة الهلالية المحددة</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">تعديل بيانات الصفة الهلالية المحددة</h5>
     <form action="/const/joptitle/{{$jop_titles -> id}}" method="POST">
         @csrf
         @method('PUT')

@@ -7,7 +7,7 @@
     </div> 
 @endif
     <div class="container">
-        <h4 class="d-flex fw-bold justify-content-center pb-3">جدول الشعب</h4>
+        <h5 class="d-flex fw-bold justify-content-center pb-3">جدول الشعب</h5>
         <table class="table table-bordered">
             <tr>
                 <th class="centered-content">#</th>

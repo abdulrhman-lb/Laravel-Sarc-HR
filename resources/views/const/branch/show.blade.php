@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <h4 class="d-flex fw-bold justify-content-center pb-3">استعراض بيانات الفرع المحدد</h4>
+  <h5 class="d-flex fw-bold justify-content-center pb-3">استعراض بيانات الفرع المحدد</h5>
     <table class="table table-bordered">   
       <tr class="pt-3 ">
         <td class="fw-bold centered-content">اسم الفرع</td>

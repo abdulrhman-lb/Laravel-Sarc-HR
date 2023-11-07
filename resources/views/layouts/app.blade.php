@@ -13,9 +13,9 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Tajawal" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
-
 
 </head>
 <body>
@@ -36,30 +36,30 @@
                             <ul class="navbar-nav mr-auto text-center">
                                 @if (auth()->user()-> role == '1')
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="/profile" >قائمة الموظفين</a>    
+                                        <a class="nav-link" href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=-&sort=&order=asc" >قائمة الموظفين</a>    
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="/profile/{{auth()->user()->id}}" >الملف الشخصي</a>    
+                                    <a class="nav-link" href="/profile/{{auth()->user()->id}}" >الملف الشخصي</a>    
                                 </li>
                                 @if (auth()->user()-> role == '1')
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             الثوابت
                                         </a>
-                                            <ul class="dropdown-menu ">
-                                                <li><a class="dropdown-item text-right" href="/const/branch">جدول الفروع</a></li>
-                                                <li><a class="dropdown-item" href="/const/subbranch">جدول الشعب</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="/const/department">جدول الأقسام</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="/const/certificate">جدول الشهادات العلمية</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="/const/maritalstatus">جدول الحالة الاجتماعية</a></li>
-                                                <li><a class="dropdown-item" href="/const/gener">جدول الجنس</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="/const/joptitle">جدول الصفة الهلالية</a></li>
-                                            </ul>
+                                        <ul class="dropdown-menu ">
+                                            <li><a class="dropdown-item text-right" href="/const/branch">جدول الفروع</a></li>
+                                            <li><a class="dropdown-item" href="/const/subbranch">جدول الشعب</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/const/department">جدول الأقسام</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/const/certificate">جدول الشهادات العلمية</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/const/maritalstatus">جدول الحالة الاجتماعية</a></li>
+                                            <li><a class="dropdown-item" href="/const/gener">جدول الجنس</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/const/joptitle">جدول الصفة الهلالية</a></li>
+                                        </ul>
                                     </li>
                                 @endif
                             </ul>
@@ -114,5 +114,6 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>/
 </body>
 </html>

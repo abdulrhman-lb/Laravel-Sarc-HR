@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">إضافة جنس جديد</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">إضافة جنس جديد</h5>
     <form action="/const/gener" method="POST">
         @csrf
         <div class="mb-3">

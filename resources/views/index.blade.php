@@ -10,13 +10,8 @@
     <div class="container containerlist">
         <h5 class="d-flex fw-bold justify-content-center py-3">عذرا هذا المستخدم غير فعال الرجاء مراجعة قسم الموارد البشرية...</h5>
     </div>
-    {{-- <div class="container containerlist">
-        <h5 class="d-flex fw-bold justify-content-center py-3">Sorry, this user is inactive. Please contact the Human Resources Department...</h5>   
-    </div> --}}
 @endif
     <div class="hero-bg-image " style="background: url('images/sarc.jpg') no-repeat center center/cover;" >
         {{-- <h1 class="text-block">Welcome To SARC</h1> --}}
     </div>
-
-
 @endsection

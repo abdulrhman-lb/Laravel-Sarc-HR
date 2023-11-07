@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="d-flex fw-bold justify-content-center pb-3">إضافة قسم جديد</h4>
+    <h5 class="d-flex fw-bold justify-content-center pb-3">إضافة قسم جديد</h5>
     <form action="/const/department" method="POST">
         @csrf
         <div class="mb-3">

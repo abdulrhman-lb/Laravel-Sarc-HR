@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container"> 
-    <h4 class="d-flex fw-bold justify-content-center pb-3">المعلومات الشخصية</h4>
-    <form action="/profile" method="POST" enctype="multipart/form-data">
+  <h5 class="d-flex fw-bold justify-content-center pb-3">المعلومات الشخصية</h5>
+  <form action="/profile" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="containerr">
         <img src="/images/non_m.png" class="img-pro my-4" id="image_preview">
@@ -140,7 +140,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ الولادة</label>
-          <input type="date" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ old('birth_date') }}">
+          <input type="text" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ old('birth_date') }}">
           @error('birth_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -262,7 +262,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ التطوع</label>
-          <input type="date" class="form-control @error('volunteering_date') is-invalid @enderror" id="volunteering_date" name="volunteering_date" value="{{ old('volunteering_date') }}">
+          <input type="text" class="form-control @error('volunteering_date') is-invalid @enderror" id="volunteering_date" name="volunteering_date" value="{{ old('volunteering_date') }}">
           @error('volunteering_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -272,7 +272,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ التوظيف</label>
-          <input type="date" class="form-control @error('hire_date') is-invalid @enderror" id="hire_date" name="hire_date" value="{{ old('hire_date') }}">
+          <input type="text" class="form-control @error('hire_date') is-invalid @enderror" id="hire_date" name="hire_date" value="{{ old('hire_date') }}">
           @error('hire_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

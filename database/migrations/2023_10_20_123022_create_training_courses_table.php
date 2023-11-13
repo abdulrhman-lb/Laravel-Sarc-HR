@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('training_courses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('training_name_id');
-            $table->string('course_place');
+            $table->unsignedBigInteger('training_id');
+            $table->string('training_place');
             $table->date('training_date_start');
             $table->date('training_date_end');
             $table->integer('training_days_number');
             $table->timestamps();
-            $table->foreign('training_name_id')->references('id')->on('training_name');
+            $table->foreign('training_id')->references('id')->on('trainings');
         });
     }
 

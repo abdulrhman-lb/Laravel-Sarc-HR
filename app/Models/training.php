@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class training_name extends Model
+class training extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['training','training_en'];
     public function training_trainer() {
         return $this->hasMany(training_trainer::class);
     }

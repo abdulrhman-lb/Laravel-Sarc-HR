@@ -51,6 +51,84 @@ for (i = 0; i < coll.length; i++) {
 }
 
 
+// const profileImageInput = document.getElementById("image");
+// const previewButton = document.getElementById("choose-image");
+// const imagePreview = document.getElementById("image_preview");
+
+// profileImageInput.addEventListener("change", function () {
+//     const file = profileImageInput.files[0];
+//     const reader = new FileReader();
+
+//     reader.onload = function () {
+//         imagePreview.src = reader.result;
+//         imagePreview.style.display = "block";
+//     }
+//     if (file) {
+//         reader.readAsDataURL(file);
+//     }
+// });
+
+$(function() {
+    $('#birth_date').datepicker({
+        autoclose: true,
+        Clear: true,
+        format: 'yyyy-mm-dd',
+    });
+  });
+  
+  $(function() {
+    $('#hire_date').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+  
+  $(function() {
+    $('#volunteering_date').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+  
+  $(function() {
+    $('#training_date_start').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+  
+  $(function() {
+    $('#training_date_end').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+
+  $(function() {
+    $('#training_date_start1').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+
+  $(function() {
+    $('#training_date_start2').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+
+
+
+
+import './bootstrap';
+
 const profileImageInput = document.getElementById("image");
 const previewButton = document.getElementById("choose-image");
 const imagePreview = document.getElementById("image_preview");
@@ -67,33 +145,3 @@ profileImageInput.addEventListener("change", function () {
         reader.readAsDataURL(file);
     }
 });
-
-
-$(function() {
-    $('#birth_date').datepicker({
-        autoclose: true,
-        Clear: true,
-        format: 'yyyy-mm-dd',
-    });
-});
-
-$(function() {
-    $('#hire_date').datepicker({
-        autoclose: true,
-        Clear: true,
-        format: 'yyyy-mm-dd',
-    });
-});
-
-$(function() {
-    $('#volunteering_date').datepicker({
-        autoclose: true,
-        Clear: true,
-        format: 'yyyy-mm-dd',
-    });
-});
-
-
-
-import './bootstrap';
-

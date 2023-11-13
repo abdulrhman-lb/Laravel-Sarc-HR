@@ -11,14 +11,21 @@ use App\Http\Controllers\GenerController;
 use App\Http\Controllers\MaritalStatusController;
 use App\Http\Controllers\JopTitleController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\TrainingCourseController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Auth\ConfController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\TrainingTrainerController;
 use App\Http\Middleware\ActiveMiddleware;
 
 
-Route::resource('/profile', ProfilesController::class)->middleware('isactive');
+Route::resource('/profile', ProfilesController::class)->middleware('auth', 'isactive', 'isadmin');
+Route::resource('/training', TrainingCourseController::class)->middleware('auth', 'isactive', 'isadmin');
+Route::resource('/trainer', TrainingTrainerController::class)->middleware('auth', 'isactive', 'isadmin');
+Route::resource('/trainee', TrainingTraineeController::class)->middleware('auth', 'isactive', 'isadmin');
 
 
 route::get('/get-sub', 'SubBranchController@getsub');
@@ -35,6 +42,8 @@ route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
     route::resource('/maritalstatus',MaritalStatusController::class);
     route::resource('/joptitle',JopTitleController::class);
     route::resource('/department',DepartmentController::class);
+    route::resource('/trainer',TrainerController::class);
+    route::resource('/training',TrainingController::class);
 });
 
 

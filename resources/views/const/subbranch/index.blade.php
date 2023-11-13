@@ -13,7 +13,7 @@
                 <th class="centered-content">#</th>
                 <th class="centered-content">اسم الشعبة</th>
                 <th class="centered-content">اسم الشعبة باللغة الانكليزية</th>
-                <th class="centered-content">اسم الفرع التالعبة له</th>
+                <th class="centered-content">اسم الفرع التابعة له</th>
                 <th class="centered-content" colspan="3"><a href="/const/subbranch/create"><button type="button" class="btn btn-success my-1">إضافة شعبة جديدة</button></a></th>
             </tr>
             @php

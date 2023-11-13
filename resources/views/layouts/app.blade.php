@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
+    <script src="https://kit.fontawesome.com/accc23eac4.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -34,18 +35,21 @@
                     @if (auth()-> check())
                         @if (auth()->user()-> active == '1')
                             <ul class="navbar-nav mr-auto text-center">
-                                @if (auth()->user()-> role == '1')
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=-&sort=&order=asc" >قائمة الموظفين</a>    
-                                    </li>
-                                @endif
                                 <li class="nav-item">
                                     <a class="nav-link" href="/profile/{{auth()->user()->id}}" >الملف الشخصي</a>    
                                 </li>
                                 @if (auth()->user()-> role == '1')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=-&sort=&order=asc" >قائمة الموظفين</a>    
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/training?tn=&tp=&td=&sort=&order=asc" >الدورات التدريبية</a>    
+                                    </li>
+                                @endif
+                                @if (auth()->user()-> role == '1')
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            الثوابت
+                                          ثوابت البرنامج
                                         </a>
                                         <ul class="dropdown-menu ">
                                             <li><a class="dropdown-item text-right" href="/const/branch">جدول الفروع</a></li>
@@ -59,6 +63,9 @@
                                             <li><a class="dropdown-item" href="/const/gener">جدول الجنس</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/const/joptitle">جدول الصفة الهلالية</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/const/trainer">جدول المدربين</a></li>
+                                            <li><a class="dropdown-item" href="/const/training">جدول الدورات التدريبية</a></li>
                                         </ul>
                                     </li>
                                 @endif

@@ -47,4 +47,8 @@ class Profile extends Model
     public function marital_status() {
         return $this->belongsTo(marital_status::class);
     }
+
+    public function trainee() {
+        return $this->hasMany(training_trainee::class,);
+    }
 }

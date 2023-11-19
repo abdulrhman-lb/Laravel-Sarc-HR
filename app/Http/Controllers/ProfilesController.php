@@ -14,17 +14,22 @@ use App\Models\jop_title;
 use App\Models\marital_status;
 use App\Models\certificate;
 use App\Models\User;
+use App\Models\training_course;
+use App\Models\training;
+use App\Models\training_trainee;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
- 
+
+use function Laravel\Prompts\table;
+
 class ProfilesController extends Controller
 {
     public function index(Request $request)
     {
         if ((auth()->user()-> role == '1')) {
             $active = $request->input('ac');
-            $query = Profile::query();
+            $query = Profile::query(); 
             if ($active != '-') $query->whereHas('user', function ($query) use ($active)
                 {
                     $query->where('active', $active);
@@ -168,11 +173,17 @@ class ProfilesController extends Controller
         if ((auth()->user()-> role == '0') && (auth()->user()->id != $id)) {
                 return redirect('/');
         } else {
-            $pro = Profile::where('user_id', $id)->first();
+            $trainees = training_trainee::where('trainee_id', $id)
+                        ->with(['training_course', 'training_course.training']);
+                        // ->orderBy('training_courses.training_date_start');
+
+            $pro = ['profiles' => Profile::where('user_id', $id)->first(),
+                    'trainees' => $trainees->get(),
+                    ];
             if ($pro == null) {
                return view('profile.redi') ;
             } else {
-                return view('profile.show')->with('profile' , $pro);
+                return view('profile.show')->with('lists' , $pro);
             }
         }
     }

@@ -10,10 +10,10 @@ class training_course extends Model
     use HasFactory;
     protected $fillable = ['training_id','training_place','training_date_start','training_date_end','training_days_number'];
     public function training_trainee() {
-        return $this->hasMany(training_trainee::class);
+        return $this->hasMany(training_trainee::class,'training_course_id');
     }
 
     public function training() {
-        return $this->belongsTo(training::class);
+        return $this->belongsTo(training::class, 'training_id');
     }    
 }

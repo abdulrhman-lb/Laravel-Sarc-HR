@@ -14,6 +14,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TrainingCourseController;
+use App\Http\Controllers\DeleteTraininController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Auth\ConfController;
@@ -23,12 +24,14 @@ use App\Http\Middleware\ActiveMiddleware;
 
 
 Route::resource('/profile', ProfilesController::class)->middleware('auth', 'isactive', 'isadmin');
-Route::resource('/training', TrainingCourseController::class)->middleware('auth', 'isactive', 'isadmin');
-Route::resource('/trainer', TrainingTrainerController::class)->middleware('auth', 'isactive', 'isadmin');
-Route::resource('/trainee', TrainingTraineeController::class)->middleware('auth', 'isactive', 'isadmin');
+Route::resource('/training', TrainingCourseController::class)->middleware('isadmin');
+Route::resource('/trainer', TrainingTrainerController::class)->middleware('isadmin');
+Route::resource('/trainee', TrainingTraineeController::class)->middleware('isadmin');
 
+Route::resource('/mytraining', DeleteTraininController::class);
 
 route::get('/get-sub', 'SubBranchController@getsub');
+route::get('det', 'SubBranchController@det');
 Auth::routes();
 
 route::get('conf/{id}',[ConfController::class,'edit'])->middleware('auth', 'isactive', 'isadmin');

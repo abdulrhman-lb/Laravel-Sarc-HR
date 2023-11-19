@@ -89,9 +89,6 @@ class TrainingTraineeController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $po = training_trainee::find($id);
@@ -99,4 +96,6 @@ class TrainingTraineeController extends Controller
         $po -> delete();
         return redirect('trainee/'.$course) -> with('message', 'تم حذف المتدرب من الدورة بنجاح');
     }
+
+
 }

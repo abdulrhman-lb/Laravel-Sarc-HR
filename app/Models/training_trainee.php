@@ -10,10 +10,10 @@ class training_trainee extends Model
     use HasFactory;
     protected $fillable = ['training_course_id','trainee_id'];
     public function training_course() {
-        return $this->belongsTo(training_course::class);
+        return $this->belongsTo(training_course::class ,'training_course_id');
     }     
 
     public function profile() {
-        return $this->hasMany(profile::class,'id');
+        return $this->belongsTo(profile::class,'trainee_id');
     }    
 }

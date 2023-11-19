@@ -75,5 +75,13 @@ class SubBranchController extends Controller
         $sub_branches = sub_branch::where('branch_id', $branchId)->get();
         return response()->json($sub_branches);
     }
+
+    public function det(Request $request)
+    {
+        dd($request);
+        $training = $request->id;
+        // $training_course = training_course::where('training_id', $training)->get();
+        // return response()->json($training_course);
+    }
        
 }

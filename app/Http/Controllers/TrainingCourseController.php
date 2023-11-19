@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\training_course;
 use App\Models\training;
 use App\Models\training_trainer;
+use App\Models\training_trainee;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -78,7 +79,6 @@ class TrainingCourseController extends Controller
 
     }
 
-
     public function create()
     {
        $par = ['training' => training::orderBy('training' , 'ASC')->get()];
@@ -105,35 +105,65 @@ class TrainingCourseController extends Controller
         return redirect('training');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $trainees = DB::table('training_trainees')
+        ->select(
+            'training_trainees.id as id1' ,
+            'training_trainees.*',
+            'profiles.*',
+        )
+        ->join('profiles', 'training_trainees.trainee_id', '=', 'profiles.id')
+        ->where('training_trainees.training_course_id', $id);
+
+        $par = ['trainers' => training_trainer::where('training_course_id', $id)->get(),
+                'trainees' => $trainees->get(),
+                'training_course' => training_course::where('id', $id)->first(),
+
+                ];
+        return view('training.show')->with('lists', $par);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $par = ['training' => training::orderBy('training' , 'ASC')->get(),
+                'training_courses' => training_course::where('id', $id)->first()];
+        return view('training.edit')->with('lists', $par);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $request -> validate([
+            'training_id' => ['required'],
+            'training_place' => ['required'],
+            'training_date_start' => ['required'],
+            'training_date_end' => ['required','after:training_date_start'],
+            'training_days_number' => ['required'],
+        ]);
+
+        training_course::where('id', $id)
+            ->update([
+                'training_id'=>$request -> Input('training_id'),
+                'training_place'=> $request -> input('training_place'),
+                'training_date_start' => $request -> input('training_date_start'),
+                'training_date_end' => $request -> input('training_date_end'),
+                'training_days_number' => $request -> input('training_days_number'),
+            ]);
+        return redirect('training') -> with('message', 'تم التعديل على الدورة التدريبية بنجاح');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $po = training_course::find($id);
+        $po -> delete();
+        return redirect('training') -> with('message', 'تم حذف الدورة التدريبية بنجاح');
+    }
+
+    public function gettraining(Request $request)
+    {
+        dd($request);
+        $training = $request->id;
+        $training_course = training_course::where('training_id', $training)->get();
+        return response()->json($training_course);
     }
 }

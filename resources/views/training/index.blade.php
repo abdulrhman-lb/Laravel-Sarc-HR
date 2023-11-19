@@ -109,8 +109,8 @@
                         <form action="{{action('TrainingCourseController@destroy', $training -> id)}}" method="POST">
                             @csrf
                             @method("DELETE")
-                            <a href="/const/training/{{$training -> id}}"><button type="button"  title="عرض تفاصيل الدورة" class="btn btn-primary my-1 "><i class="fa fa-eye"></i></button></a>
-                            <a href="/const/training/{{$training -> id}}/edit"><button type="button"  title="تعديل بيانات الدورة" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
+                            <a href="/training/{{$training -> id}}"><button type="button"  title="عرض تفاصيل الدورة" class="btn btn-primary my-1 "><i class="fa fa-eye"></i></button></a>
+                            <a href="/training/{{$training -> id}}/edit"><button type="button"  title="تعديل بيانات الدورة" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
                             <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الدورة التدريبية ؟')"><i class="fa fa-trash"></i></button>  
                             <span class="m-2">|</span>
                             <a href="trainee/{{$training -> id}}"><button type="button" title="المتدربين" class="btn btn-info my-1 notification"><i class="fas fa-book-reader"></i><span class="badge">{{$training -> trainee_count}}</span></button></a>

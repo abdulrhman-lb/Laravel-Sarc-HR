@@ -51,4 +51,9 @@ class Profile extends Model
     public function trainee() {
         return $this->hasMany(training_trainee::class,);
     }
+
+    public function trainingCourses()
+    {
+        return $this->hasMany(Training_Trainee::class, 'trainee_id');
+    }
 }

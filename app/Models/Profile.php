@@ -11,7 +11,7 @@ class Profile extends Model
 
     protected $fillable = [
         'branch_id','sub_branch_id','point','department_id','first_name','last_name','father_name','mother_name','national_number',
-        'gener_id','birth_place','birth_date','blood_group','marital_status_id','mobile_phone','phone','email','certificate_id',
+        'gender_id','birth_place','birth_date','blood_group','marital_status_id','mobile_phone','phone','email','certificate_id',
         'certificate_details','position','volunteering_date','hire_date','full_name_en','position_en','shoes_size','waist_size',
         'shoulders_size','image', 'user_id', 'jop_title_id','slug'
     ];
@@ -36,8 +36,8 @@ class Profile extends Model
         return $this->belongsTo(certificate::class);
     }
 
-    public function gener() {
-        return $this->belongsTo(gener::class);
+    public function gender() {
+        return $this->belongsTo(gender::class);
     }
 
     public function jop_title() {
@@ -52,8 +52,11 @@ class Profile extends Model
         return $this->hasMany(training_trainee::class,);
     }
 
-    public function trainingCourses()
-    {
+    public function trainingCourses(){
         return $this->hasMany(Training_Trainee::class, 'trainee_id');
+    }
+
+    public function penalty(){
+        return $this->hasMany(penalty::class, 'profile_id');
     }
 }

@@ -127,13 +127,13 @@
 
       <div class="col-12">
         <label class="m-2">اختر الجنس...</label>
-        <select class="form-select @error('gener_id') is-invalid @enderror " id="gener_id" name="gener_id">
-          <option value="0" {{$lists['profiles'] -> gener_id == 0 ? 'selected' : ''}}>-</option>
-          @foreach ($lists['geners'] as $gener)
-            <option value="{{$gener -> id}}" {{$lists['profiles'] -> gener_id == $gener -> id  ? 'selected' : ''}}>{{$gener -> gener . ' - ' . $gener -> gener_en}}</option>
+        <select class="form-select @error('gender_id') is-invalid @enderror " id="gender_id" name="gender_id">
+          <option value="0" {{$lists['profiles'] -> gender_id == 0 ? 'selected' : ''}}>-</option>
+          @foreach ($lists['genders'] as $gender)
+            <option value="{{$gender -> id}}" {{$lists['profiles'] -> gender_id == $gender -> id  ? 'selected' : ''}}>{{$gender -> gender . ' - ' . $gender -> gender_en}}</option>
           @endforeach
         </select>
-        @error('gener_id')
+        @error('gender_id')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>

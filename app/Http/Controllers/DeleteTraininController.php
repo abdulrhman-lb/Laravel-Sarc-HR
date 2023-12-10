@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\training_trainee;
 use App\Models\training;
 use App\Models\training_course;
+use App\Models\Profile;
 
 class DeleteTraininController extends Controller
 {
@@ -17,7 +18,6 @@ class DeleteTraininController extends Controller
                 'training' => $request->tr,
                 'profile' => $request->pr,
                 'trainings'=> training::get()];
-        // dd($par['profile']);
         return view('profile.addtraining')->with('lists', $par);
     }
 
@@ -34,7 +34,8 @@ class DeleteTraininController extends Controller
             'training_course_id'=>$request -> Input('tr'),
             'trainee_id'=> $request -> input('pr')
         ]);
-        return redirect('profile/'.$request -> input('pr')) -> with('message', 'تم إضافة الدورة التدريبية إلى الدورات المتبعة بنجاح');
+        $profileID = Profile::where('id', $request -> input('pr'))->first();
+        return redirect('profile/'.$profileID->user_id) -> with('message', 'تم إضافة الدورة التدريبية إلى الدورات المتبعة بنجاح');
     }
 
     public function show(string $id)
@@ -55,6 +56,8 @@ class DeleteTraininController extends Controller
         $po = training_trainee::find($id);
         $course = training_trainee::find($id) -> trainee_id; 
         $po -> delete();
-        return redirect('profile/'.$course) -> with('message', 'تم حذف الدورة من الدورات المتبعة بنجاح');
+        $profileID = Profile::where('id', $course)->first();
+
+        return redirect('profile/'.$profileID->user_id) -> with('message', 'تم حذف الدورة من الدورات المتبعة بنجاح');
     }
 }

@@ -16,7 +16,12 @@ return new class extends Migration
             $table->string('department');
             $table->string('department_en');
             $table->string('department_short');
-            $table->integer('coordinator_id');
+            $table->string('department_address');
+            $table->string('donor');
+            $table->text('department_information');
+            $table->string('coordinator_name');
+            $table->string('coordinator_mobile');
+            $table->string('coordinator_email');
             $table->timestamps();
         });
     }

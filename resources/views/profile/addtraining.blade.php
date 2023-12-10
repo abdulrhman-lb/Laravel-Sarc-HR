@@ -27,13 +27,14 @@
     </form>
         <table class="table table-bordered mt-3">
             <tr>
-                <th class="centered-content" colspan="7">الدورات التدريبيبة المتاحة</th>
+                <th class="centered-content" colspan="8">الدورات التدريبيبة المتاحة</th>
             </tr>
             <tr>   
                 <th class="centered-content">مكان التدريب</th>
                 <th class="centered-content">تاريخ بدء التدريب</th>
                 <th class="centered-content">تاريخ نهاية التدريب</th>
                 <th class="centered-content">عدد أيام التدريب</th>
+                <th class="centered-content">المدربين</th>
                 <th class="centered-content"></button></a></th>
             </tr>
             @foreach ($lists['training_courses'] as $training_course)        
@@ -42,6 +43,19 @@
                     <td class="centered-content">{{$training_course -> training_date_start }}</td>
                     <td class="centered-content">{{$training_course -> training_date_end }}</td>
                     <td class="centered-content">{{$training_course -> training_days_number }}</td>
+                    <td class="centered-content">
+                    <table class="table table-bordered">
+                        @foreach ($training_course -> training_trainer as $trainer)  
+                          <tr>
+                            <td>
+                              {{$trainer -> trainer -> trainer}} 
+                              <br>
+                              {{$trainer -> trainer -> trainer_en}} 
+                            </td>
+                          </tr>
+                        @endforeach
+                      </table>
+                    </td>
                     <td class="centered-content">
                       <form action="/mytraining" method="POST">
                           @csrf

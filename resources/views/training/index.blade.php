@@ -106,7 +106,7 @@
                     <td class="centered-content">{{$training -> training_place}}</td>
                     <td class="centered-content">{{$training -> training_date_start}}</td>
                     <td class="centered-content">
-                        <form action="{{action('TrainingCourseController@destroy', $training -> id)}}" method="POST">
+                        <form action="" method="POST">
                             @csrf
                             @method("DELETE")
                             <a href="/training/{{$training -> id}}"><button type="button"  title="عرض تفاصيل الدورة" class="btn btn-primary my-1 "><i class="fa fa-eye"></i></button></a>

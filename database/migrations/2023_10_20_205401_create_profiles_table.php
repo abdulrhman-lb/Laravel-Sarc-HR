@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('father_name');
             $table->string('mother_name');
-            $table->unsignedBigInteger('gener_id');
+            $table->unsignedBigInteger('gender_id');
             $table->string('birth_place');
             $table->date('birth_date');
             $table->unsignedBigInteger('marital_status_id');
@@ -49,7 +49,7 @@ return new class extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->foreign('sub_branch_id')->references('id')->on('sub_branches');
-            $table->foreign('gener_id')->references('id')->on('geners');
+            $table->foreign('gender_id')->references('id')->on('genders');
             $table->foreign('marital_status_id')->references('id')->on('marital_statuses');
             $table->foreign('jop_title_id')->references('id')->on('jop_titles');
             $table->foreign('certificate_id')->references('id')->on('certificates');

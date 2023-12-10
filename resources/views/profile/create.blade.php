@@ -34,9 +34,14 @@
 
         <div class="col-12">
           <label class="m-2">اختر الشعبة...</label>
-          <select class="form-select " id="sub_branch_id" name="sub_branch_id">
-            <option value="0">-</option>
+          <select class="form-select @error('sub_branch_id') is-invalid @enderror" id="sub_branch_id" name="sub_branch_id">
+            <option>-</option>
           </select>
+          @error('sub_branch_id')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
         </div>
 
         <div class="col-12">
@@ -115,13 +120,13 @@
 
         <div class="col-12">
           <label class="m-2">اختر الجنس...</label>
-          <select class="form-select @error('gener_id') is-invalid @enderror" id="gener_id" name="gener_id">
+          <select class="form-select @error('gender_id') is-invalid @enderror" id="gender_id" name="gender_id">
             <option>-</option>
-            @foreach ($lists['geners'] as $gener)
-              <option value="{{$gener -> id}}" {{ $gener -> id == old('gener_id') ? 'selected' : ''}}>{{$gener -> gener . ' - ' . $gener -> gener_en}}</option>
+            @foreach ($lists['genders'] as $gender)
+              <option value="{{$gender -> id}}" {{ $gender -> id == old('gender_id') ? 'selected' : ''}}>{{$gender -> gender . ' - ' . $gender -> gender_en}}</option>
             @endforeach
           </select>
-          @error('gener_id')
+          @error('gender_id')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>

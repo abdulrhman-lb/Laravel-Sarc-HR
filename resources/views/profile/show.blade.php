@@ -13,7 +13,7 @@
       $image = '';
       if (($lists['profiles'] -> image) == '' ) {
         $image = 'non_m.png';
-          if (($lists['profiles'] -> gener) == 'Female-أنثى') {
+          if (($lists['profiles'] -> gender) == 'Female-أنثى') {
             $image = 'non_f.png';
           }
           
@@ -74,9 +74,9 @@
     </tr>
     <tr class="pt-3 ">
       <td class="fw-bold centered-content">الجنس</td>
-      <td class="centered-content">{{$lists['profiles'] -> gener -> gener}}</td>
-      <td class="centered-content">{{$lists['profiles'] -> gener -> gener_en}}</td>
-      <td class="fw-bold centered-content">Gener</td>
+      <td class="centered-content">{{$lists['profiles'] -> gender -> gender}}</td>
+      <td class="centered-content">{{$lists['profiles'] -> gender -> gender_en}}</td>
+      <td class="fw-bold centered-content">Gender</td>
     </tr>
     <tr class="pt-3 ">
       <td class="fw-bold centered-content">مكان الولادة</td>
@@ -181,7 +181,7 @@
 
   <table class="table table-bordered mt-3">
     <tr>
-        <th class="centered-content" colspan="7">الدورات التدريبيبة المتبعة</th>
+        <th class="centered-content" colspan="8">الدورات التدريبيبة المتبعة</th>
     </tr>
     <tr>
         <th class="centered-content">#</th>
@@ -190,6 +190,7 @@
         <th class="centered-content">تاريخ بدء التدريب</th>
         <th class="centered-content">تاريخ نهاية التدريب</th>
         <th class="centered-content">عدد أيام التدريب</th>
+        <th class="centered-content">المدربين</th>
         <th class="centered-content" colspan="3"><a href="/mytraining?tr=0&pr={{$lists['profiles'] -> id}}"><button type="button" class="btn btn-success my-1">إضافة دورة جديدة</button></a></th>
     </tr>
     @php
@@ -207,12 +208,53 @@
             <td class="centered-content">{{$trainee -> training_course -> training_date_end }}</td>
             <td class="centered-content">{{$trainee -> training_course -> training_days_number }}</td>
             <td class="centered-content">
+            <table class="table table-bordered">
+              @foreach ($trainee -> training_course -> training_trainer as $trainer)  
+                <tr>
+                  <td>
+                    {{$trainer -> trainer -> trainer}} 
+                    <br>
+                    {{$trainer -> trainer -> trainer_en}} 
+                  </td>
+                </tr>
+              @endforeach
+            </table>
+          </td>
+            <td class="centered-content">
               <form action="{{action('DeleteTraininController@destroy', $trainee -> id)}}" method="POST">
                   @csrf
                   @method("DELETE")
                   <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الدورة من الدورات المتبعة ؟')"><i class="fa fa-trash"></i></button>  
               </form>  
           </td>
+        </tr>
+    @endforeach
+  </table>
+
+  <table class="table table-bordered mt-3">
+    <tr>
+        <th class="centered-content" colspan="8">العقوبات</th>
+    </tr>
+    <tr>
+        <th class="centered-content">#</th>
+        <th class="centered-content">العقوبة</th>
+        <th class="centered-content">تاريخ العقوبة</th>
+        <th class="centered-content">مصدر العقوبة</th>
+        <th class="centered-content">سبب العقوبة</th>
+    </tr>
+    @php
+        $count = 0;
+    @endphp
+    @foreach ($lists['penalties'] as $penalty)        
+        <tr class="pt-3 ">
+            @php
+                $count++;
+            @endphp
+            <td class="fw-bold centered-content">{{$count}}</td>
+            <td class="centered-content">{{$penalty-> penalty_name -> penalty_name}}</td>
+            <td class="centered-content">{{$penalty-> penalty_date}}</td>
+            <td class="centered-content">{{$penalty-> penalty_source}}</td>
+            <td class="centered-content">{{$penalty-> penalty_reason}}</td>
         </tr>
     @endforeach
   </table>

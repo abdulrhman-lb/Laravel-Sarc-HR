@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class penalty_name extends Model
 {
     use HasFactory;
-    // protected $fillable = ['penalty_name','penalty_name_en'];
+    protected $fillable = ['penalty_name'];
     public function penalty() {
-        return $this->hasMany(penalty::class);
+        return $this->hasMany(penalty::class, 'id');
     }
 }

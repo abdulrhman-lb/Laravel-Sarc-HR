@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\trainer;
+use App\Models\training_trainer;
 
 class TrainerController extends Controller
 {
@@ -26,13 +27,17 @@ class TrainerController extends Controller
         trainer::create([
             'trainer'=>$request -> Input('trainer'),
             'trainer_en'=> $request -> input('trainer_en')
-        ]);
+        ]); 
         return redirect('const/trainer');    
     }
 
     public function show(string $id)
     {
-        return view('const.trainer.show')->with('trainers', trainer::where('id', $id)->first());
+        $par = ['trainer' =>  trainer::where('id', $id)->first(),
+                'trainers' => training_trainer::where('trainer_id', $id)
+                    ->with(['training_course', 'training_course.training'])->get()];
+
+        return view('const.trainer.show')->with('lists', $par);
     }
 
     public function edit(string $id)

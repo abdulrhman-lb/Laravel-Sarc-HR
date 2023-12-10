@@ -17,13 +17,13 @@
                 <div class="row row-cols-lg-4 g-4 align-items-center mb-3 " style="width: 75%; float: right;">
 
                     <div class="col-12">
-                    <label class="m-1">الفرع</label>
-                    <select class="form-select" id="branch_id" name="br" >
-                        <option value="" selected>-</option>
-                        @foreach ($lists['branches'] as $branch)
-                            <option value="{{$branch -> id}}" {{$lists['branch_selected'] == $branch -> id  ? 'selected' : ''}}>{{$branch -> branch . ' - ' . $branch -> branch_en}}</option>
-                        @endforeach
-                    </select>
+                        <label class="m-1">الفرع</label>
+                        <select class="form-select" id="branch_id" name="br" >
+                            <option value="" selected>-</option>
+                            @foreach ($lists['branches'] as $branch)
+                                <option value="{{$branch -> id}}" {{$lists['branch_selected'] == $branch -> id  ? 'selected' : ''}}>{{$branch -> branch . ' - ' . $branch -> branch_en}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-12">
@@ -58,10 +58,10 @@
 
                     <div class="col-12">
                         <label class="m-1">الجنس</label>
-                        <select class="form-select " id="gener_id" name="gn">
+                        <select class="form-select " id="gender_id" name="gn">
                             <option value="" selected>-</option>
-                            @foreach ($lists['geners'] as $gener)
-                            <option value="{{$gener -> id}}" {{$lists['gener_selected'] == $gener -> id  ? 'selected' : ''}}>{{$gener -> gener . ' - ' . $gener -> gener_en}}</option>
+                            @foreach ($lists['genders'] as $gender)
+                            <option value="{{$gender -> id}}" {{$lists['gender_selected'] == $gender -> id  ? 'selected' : ''}}>{{$gender -> gender . ' - ' . $gender -> gender_en}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -71,7 +71,7 @@
                         <select class="form-select" id="marital_status_id" name="ms">
                             <option selected value="">-</option>
                             @foreach ($lists['marital_statuses'] as $marital_status)
-                            <option value="{{$marital_status -> id}}" {{$gener -> id}}" {{$lists['marital_status_selected'] == $marital_status -> id  ? 'selected' : ''}}>{{$marital_status -> marital_status . ' - ' . $marital_status -> marital_status_en}}</option>
+                            <option value="{{$marital_status -> id}}" {{$gender -> id}}" {{$lists['marital_status_selected'] == $marital_status -> id  ? 'selected' : ''}}>{{$marital_status -> marital_status . ' - ' . $marital_status -> marital_status_en}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -122,7 +122,7 @@
                             <option value="branch_id" {{$lists['sort_selected'] == 'branch_id'  ? 'selected' : ''}}>الفرع</option>
                             <option value="sub_branch_id" {{$lists['sort_selected'] == 'sub_branch_id'  ? 'selected' : ''}}>الشعبة</option>
                             <option value="department_id" {{$lists['sort_selected'] == 'department_id'  ? 'selected' : ''}}>القسم</option>
-                            <option value="gener_id" {{$lists['sort_selected'] == 'gener_id'  ? 'selected' : ''}}>الجنس</option>
+                            <option value="gender_id" {{$lists['sort_selected'] == 'gender_id'  ? 'selected' : ''}}>الجنس</option>
                             <option value="marital_status_id" {{$lists['sort_selected'] == 'marital_status_id'  ? 'selected' : ''}}>الحالة الاجتماعية</option>
                             <option value="certificate_id" {{$lists['sort_selected'] == 'certificate_id'  ? 'selected' : ''}}>الشهادة العلمية</option>
                             <option value="jop_title_id" {{$lists['sort_selected'] == 'jop_title_id'  ? 'selected' : ''}}>الصفة الهلالية</option>
@@ -170,14 +170,14 @@
                 <span class="fw-bold">{{$profile -> first_name . ' ' . $profile -> father_name . ' ' . $profile -> last_name}}</span>
                 <div class="activ-button">
                     @if ($profile -> jop_title_id == 1)
-                        <div class="badge bg-info text-dark">{{$profile-> jop_title -> jop_title}}</div>
+                        <a href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=1&ac=-&sort=&order=asc"><div class="badge bg-info text-dark">{{$profile-> jop_title -> jop_title}}</div></a>
                     @else
-                        <div class="badge bg-warning text-dark">{{$profile-> jop_title -> jop_title}}</div>
+                        <a href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=2&ac=-&sort=&order=asc"><div class="badge bg-warning text-dark">{{$profile-> jop_title -> jop_title}}</div></a>
                     @endif 
                     @if ($profile->user->active == '1')
-                        <div class="badge bg-success">فعال</div>
+                        <a href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=1&sort=&order=asc"><div class="badge bg-success">فعال</div></a>
                     @else
-                        <div class="badge bg-danger">غير فعال</div>
+                        <a href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=0&sort=&order=asc"><div class="badge bg-danger">غير فعال</div></a>
                     @endif 
                     @if ($profile->user->role == '1')
                         <i class="fa fa-star checked" aria-hidden="true"></i>

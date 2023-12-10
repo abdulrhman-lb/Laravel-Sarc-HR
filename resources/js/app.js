@@ -11,7 +11,7 @@ $('#branch_id').on('change', function() {
             var sub_branch_Select = $('#sub_branch_id');
             sub_branch_Select.empty(); // تفريغ القائمة المنسدلة
             // إضافة الشعب إلى القائمة المنسدلة
-            sub_branch_Select.append('<option value="0">-</option>');
+            sub_branch_Select.append('<option>-</option>');
             $.each(data, function(key, value) {
               sub_branch_Select.append('<option value="' + value.id + '">' + value.sub_branch +  ' - ' + value.sub_branch_en + '</option>');
             });
@@ -120,6 +120,14 @@ $(function() {
 
   $(function() {
     $('#training_date_start2').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+
+  $(function() {
+    $('#penalty_date').datepicker({
       autoclose: true,
       Clear: true,
       format: 'yyyy-mm-dd',

@@ -42,8 +42,21 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=-&sort=&order=asc" >قائمة الموظفين</a>    
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/training?tn=&tp=&td=&sort=&order=asc" >الدورات التدريبية</a>    
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                         الأنشطة والاجراءات
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item text-right" href="/training?tn=&tp=&td=&sort=&order=asc">الدورات التدريبية</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="#">المكافئات</a></li>
+                                            <li><a class="dropdown-item" href="/penalty">العقوبات</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="#">السيرة الهلال</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="#">الاجازات</a></li>
+                                            <li><a class="dropdown-item" href="#">الاشتراكات السنوية</a></li>
+                                        </ul> 
                                     </li>
                                 @endif
                                 @if (auth()->user()-> role == '1')
@@ -51,7 +64,7 @@
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                           ثوابت البرنامج
                                         </a>
-                                        <ul class="dropdown-menu ">
+                                        <ul class="dropdown-menu">
                                             <li><a class="dropdown-item text-right" href="/const/branch">جدول الفروع</a></li>
                                             <li><a class="dropdown-item" href="/const/subbranch">جدول الشعب</a></li>
                                             <li><hr class="dropdown-divider"></li>
@@ -60,15 +73,31 @@
                                             <li><a class="dropdown-item" href="/const/certificate">جدول الشهادات العلمية</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/const/maritalstatus">جدول الحالة الاجتماعية</a></li>
-                                            <li><a class="dropdown-item" href="/const/gener">جدول الجنس</a></li>
+                                            <li><a class="dropdown-item" href="/const/gender">جدول الجنس</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/const/joptitle">جدول الصفة الهلالية</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/const/trainer">جدول المدربين</a></li>
                                             <li><a class="dropdown-item" href="/const/training">جدول الدورات التدريبية</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/const/penalty">جدول العقوبات</a></li>
                                         </ul>
                                     </li>
                                 @endif
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/teams" >الفرق والأقسام</a>    
+                                </li>
+                                {{-- <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        الفرق والأقسام
+                                      </a>   
+                                      <ul class="dropdown-menu">
+                                        @foreach ($departments as $department)
+                                            
+                                        <li><a class="dropdown-item text-right" href="/const/branch">{{$department -> department}}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li> --}}
                             </ul>
                         @endif
                     @endif

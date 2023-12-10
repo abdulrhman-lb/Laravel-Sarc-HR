@@ -68,7 +68,7 @@ VALUES  ('غير متعلم', 'Illiterate'),
         ('ماجستير', 'Master'),
         ('دكتوراه', 'Ph.D');
 
-INSERT INTO geners (gener, gener_en) 
+INSERT INTO genders (gender, gender_en) 
 VALUES  ('ذكر', 'Male'), 
 		('أنثى', 'Female');
 

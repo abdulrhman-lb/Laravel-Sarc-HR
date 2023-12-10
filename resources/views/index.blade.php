@@ -5,6 +5,7 @@
         {{session()->get('message')}}
     </div> 
 @endif
+
 {{-- hero --}}
 @if ((auth()-> check()) && (auth()->user()-> active == '0'))
     <div class="container containerlist">

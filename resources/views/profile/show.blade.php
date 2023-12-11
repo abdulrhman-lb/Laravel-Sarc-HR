@@ -7,7 +7,7 @@
 </div> 
 @endif
 <div class="container containerlist"> 
-  <h5 class="d-flex fw-bold justify-content-center px-1 containerlist">المعلومات الشخصية</h5>
+  <h5 class="d-flex fw-bold justify-content-center px-1 containerlist header-tables">المعلومات الشخصية</h5>
   <table class="table">   
     @php
       $image = '';
@@ -175,13 +175,11 @@
       <td class="fw-bold centered-content">Shoulders Size</td>
     </tr>
   </table>
-  <div class="form-floating">
-    <a href="/profile/{{$lists['profiles'] -> user_id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
-  </div>
+
 
   <table class="table table-bordered mt-3">
     <tr>
-        <th class="centered-content" colspan="8">الدورات التدريبيبة المتبعة</th>
+        <th class="centered-content header-tables" colspan="8">الدورات التدريبيبة المتبعة</th>
     </tr>
     <tr>
         <th class="centered-content">#</th>
@@ -233,7 +231,7 @@
 
   <table class="table table-bordered mt-3">
     <tr>
-        <th class="centered-content" colspan="8">العقوبات</th>
+        <th class="centered-content header-tables" colspan="8">العقوبات</th>
     </tr>
     <tr>
         <th class="centered-content">#</th>
@@ -258,5 +256,46 @@
         </tr>
     @endforeach
   </table>
+
+  <table class="table table-bordered mt-3">
+    <tr>
+        <th class="header-tables centered-content " colspan="8">السيرة الهلالية</th>
+    </tr>
+    <tr>
+        <th class="centered-content">#</th>
+        <th class="centered-content">القسم</th>
+        <th class="centered-content">المنصب</th>
+        <th class="centered-content">المنصب بالانكليزية</th>
+        <th class="centered-content">الصفة الهلالية</th>
+        <th class="centered-content">تاريخ البدء</th>
+        <th class="centered-content">تاريخ الانتهاء</th>
+    </tr>
+    @php
+        $count = 0;
+    @endphp
+    @foreach ($lists['positions'] as $position)        
+        <tr class="pt-3 ">
+            @php
+                $count++;
+                $i = 0;
+                if ($position -> end_date == "1900-01-01") {
+                          $end_date='حتى الآن';
+                          $i = 1;
+                        } else {
+                            $end_date=$position -> end_date;}
+            @endphp
+            <td class="fw-bold centered-content">{{$count}}</td>
+            <td class="centered-content {{$i == 1 ? 'fw-bold' : ''}}">{{$position-> department -> department}}</td>
+            <td class="centered-content {{$i == 1 ? 'fw-bold' : ''}}">{{$position-> position}}</td>
+            <td class="centered-content {{$i == 1 ? 'fw-bold' : ''}}">{{$position-> position_en}}</td>
+            <td class="centered-content {{$i == 1 ? 'fw-bold' : ''}}">{{$position-> jop_title -> jop_title}}</td>
+            <td class="centered-content {{$i == 1 ? 'fw-bold' : ''}}">{{$position-> start_date}}</td>
+            <td class="centered-content {{$i == 1 ? 'fw-bold' : ''}}">{{$end_date}}</td>
+        </tr>
+    @endforeach
+  </table>
+  <div class="form-floating">
+    <a href="/profile/{{$lists['profiles'] -> user_id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
+  </div>
 </div>
 @endsection

@@ -21,6 +21,8 @@ use App\Http\Controllers\Auth\ConfController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PenaltyNameController;
 use App\Http\Controllers\PenaltyController;
+use App\Http\Controllers\TrainingTraineeController;
+use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TrainingTrainerController;
 use App\Http\Controllers\DepartmentindexController;
@@ -32,6 +34,7 @@ Route::resource('/training', TrainingCourseController::class)->middleware('isadm
 Route::resource('/trainer', TrainingTrainerController::class)->middleware('isadmin');
 Route::resource('/trainee', TrainingTraineeController::class)->middleware('isadmin');
 Route::resource('/penalty', PenaltyController::class)->middleware('isadmin');
+Route::resource('/position', PositionController::class)->middleware('isadmin');
 
 Route::resource('/mytraining', DeleteTraininController::class);
 

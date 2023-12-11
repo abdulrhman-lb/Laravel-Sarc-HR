@@ -12,4 +12,8 @@ class jop_title extends Model
     public function profile() {
         return $this->hasMany(profile::class);
     }
+
+    public function position(){
+        return $this->hasMany(position::class, 'jop_title_id');
+    }
 }

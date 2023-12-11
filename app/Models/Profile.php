@@ -59,4 +59,8 @@ class Profile extends Model
     public function penalty(){
         return $this->hasMany(penalty::class, 'profile_id');
     }
+
+    public function position(){
+        return $this->hasMany(position::class, 'profile_id');
+    }
 }

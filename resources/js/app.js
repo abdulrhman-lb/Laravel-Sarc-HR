@@ -134,6 +134,14 @@ $(function() {
     });
   });
 
+  $(function() {
+    $('#start_date').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'yyyy-mm-dd',
+    });
+  });
+
 
 
 

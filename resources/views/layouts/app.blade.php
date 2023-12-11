@@ -52,7 +52,7 @@
                                             <li><a class="dropdown-item" href="#">المكافئات</a></li>
                                             <li><a class="dropdown-item" href="/penalty">العقوبات</a></li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#">السيرة الهلال</a></li>
+                                            <li><a class="dropdown-item" href="/position">السيرة الهلال</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="#">الاجازات</a></li>
                                             <li><a class="dropdown-item" href="#">الاشتراكات السنوية</a></li>

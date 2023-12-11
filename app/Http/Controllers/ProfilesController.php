@@ -15,6 +15,7 @@ use App\Models\marital_status;
 use App\Models\certificate;
 use App\Models\User;
 use App\Models\penalty;
+use App\Models\Position;
 use App\Models\training_course;
 use App\Models\training;
 use App\Models\training_trainee;
@@ -184,10 +185,13 @@ class ProfilesController extends Controller
                             ->with(['training_course', 'training_course.training', 'training_course.training_trainer.trainer']);
                 $penalties = penalty::where('profile_id', ($profileID->id))
                             ->with(['penalty_name']);
+                $positions = Position::where('profile_id', ($profileID->id))
+                            ->with(['department','jop_title']);
 
                 $pro = ['profiles' => Profile::where('user_id', $id)->first(),
                         'trainees' => $trainees->get(),
                         'penalties' => $penalties->get(),
+                        'positions' => $positions->orderBy('start_date' , 'ASC')->get(),
                         ];
                 return view('profile.show')->with('lists' , $pro);
             }

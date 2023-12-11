@@ -58,7 +58,7 @@
 
       <div class="col-12">
         <label class="m-2">اختر القسم...</label>
-        <select class="form-select @error('department_id') is-invalid @enderror " id="department_id" name="department_id">
+        <select class="form-select @error('department_id') is-invalid @enderror " id="department_id" name="department_id" disabled>
           <option value="0" {{$lists['profiles'] -> department_id == 0  ? 'selected' : ''}}>-</option>
           @foreach ($lists['departments'] as $department)
             <option value="{{$department -> id}}" {{$lists['profiles']->department_id == $department -> id  ? 'selected' : ''}}>{{$department -> department . ' - ' . $department -> department_en}}</option>
@@ -255,7 +255,7 @@
 
       <div class="col-12">
         <label class="m-2">اختر الصفة الهلالية...</label>
-        <select class="form-select @error('jop_title_id') is-invalid @enderror " id="jop_title_id" name="jop_title_id">
+        <select class="form-select @error('jop_title_id') is-invalid @enderror " id="jop_title_id" name="jop_title_id" disabled>
           <option value="0" {{$lists['profiles'] -> jop_title_id == 0 ? 'selected' : ''}}>-</option>
           @foreach ($lists['jop_titles'] as $jop_title)
             <option value="{{$jop_title -> id}}" {{$lists['profiles'] -> jop_title_id == $jop_title -> id  ? 'selected' : ''}}>{{$jop_title -> jop_title . ' - ' . $jop_title -> jop_title_en}}</option>
@@ -270,7 +270,7 @@
 
       <div class="col-12 ">
         <label class="m-2"> المنصب</label>
-        <input type="text" class="form-control" id="position" name="position" value="{{$lists['profiles'] -> position}}">
+        <input type="text" class="form-control" id="position" name="position" value="{{$lists['profiles'] -> position}}" disabled>
       </div>
       
       <div class="col-12">
@@ -299,8 +299,8 @@
       </div>
 
       <div class="col-12 ">
-        <label class="m-2"> المنصب باللغة الالنكليزية</label>
-        <input type="text" class="form-control" id="position_en" name="position_en" value="{{$lists['profiles'] -> position_en}}">
+        <label class="m-2"> المنصب باللغة الانكليزية</label>
+        <input type="text" class="form-control" id="position_en" name="position_en" value="{{$lists['profiles'] -> position_en}}" disabled>
       </div>
 
       <div class="col-12 ">

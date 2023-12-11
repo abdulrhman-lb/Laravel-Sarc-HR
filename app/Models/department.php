@@ -12,4 +12,8 @@ class department extends Model
     public function profile() {
         return $this->hasMany(profile::class);
     }
+
+    public function position(){
+        return $this->hasMany(position::class, 'department_id');
+    }
 }

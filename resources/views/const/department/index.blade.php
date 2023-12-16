@@ -32,7 +32,7 @@
                         <form action="{{action('DepartmentController@destroy', $department -> id)}}" method="POST">
                             @csrf
                             @method("DELETE")
-                            <a href="/const/department/{{$department -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
+                            <a href="/teams/{{$department -> id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
                             <a href="/const/department/{{$department -> id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
                             <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا القسم ؟')"><i class="fa fa-trash"></i></button>  
                         </form>  

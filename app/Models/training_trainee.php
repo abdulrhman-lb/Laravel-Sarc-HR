@@ -17,3 +17,4 @@ class training_trainee extends Model
         return $this->belongsTo(profile::class,'trainee_id');
     }    
 }
+ 

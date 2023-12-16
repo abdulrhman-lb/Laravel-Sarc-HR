@@ -22,6 +22,8 @@ use App\Models\training_trainee;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportProfile;
 
 use function Laravel\Prompts\table;
 
@@ -44,10 +46,20 @@ class ProfilesController extends Controller
                 if ($request->input('gn')) {$query->where('gender_id', $request->input('gn'));}
                 if ($request->input('ms')) {$query->where('marital_status_id', $request->input('ms'));}
                 if ($request->input('cf')) {$query->where('certificate_id', $request->input('cf'));}
-                if ($request->input('cd')) {$query->where('certificate_details', $request->input('cd'));}
+                if ($request->input('cd')) {$query->where('certificate_details', 'like' , '%'.$request->input('cd').'%');}
                 if ($request->input('jt')) {$query->where('jop_title_id', $request->input('jt'));}
                 if ($request->input('sort')) {$query->orderby($request->input('sort'), $request->input('order'));}
 
+            session(['branch_id' => $request->input('br'),
+                     'sub_branch_id' => $request->input('sb'),
+                     'department_id' => $request->input('dp'),
+                     'first_name' => $request->input('nm'),
+                     'last_name' => $request->input('ln'),
+                     'gender_id' => $request->input('gn'),
+                     'marital_status_id' => $request->input('ms'),
+                     'certificate_id' => $request->input('cf'),
+                     'certificate_details' => $request->input('cd'),
+                     'jop_title_id' => $request->input('jt')]);
             $par = ['branches' => branch::orderBy('branch' , 'ASC')->get(),
             'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
             'departments' => department::orderBy('department' , 'ASC')->get(),
@@ -219,7 +231,7 @@ class ProfilesController extends Controller
         $request -> validate([
             'branch_id' => ['required', 'min_digits:1'],
             'sub_branch_id' => ['required', 'min_digits:1'],
-            'department_id' => ['required', 'min_digits:1'],
+            // 'department_id' => ['required', 'min_digits:1'],
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
             'father_name' => ['required', 'string'],
@@ -234,7 +246,7 @@ class ProfilesController extends Controller
             'phone' => ['digits:10'],
             'email' => 'required|email|unique:Profiles,email,' . $pro->id,
             'certificate_id' => ['required', 'min_digits:1'],
-            'jop_title_id' => ['required', 'min_digits:1'],
+            // 'jop_title_id' => ['required', 'min_digits:1'],
             'volunteering_date' => ['required', 'date'],
             'full_name_en' => ['required', 'string'],
         ]);
@@ -246,7 +258,7 @@ class ProfilesController extends Controller
                 'branch_id'=>$request -> Input('branch_id'),
                 'sub_branch_id'=> $request -> input('sub_branch_id'),
                 'point' => $request -> input('point'),
-                'department_id' => $request -> input('department_id'),
+                // 'department_id' => $request -> input('department_id'),
                 'first_name' => $request -> input('first_name'),
                 'last_name' => $request -> input('last_name'),
                 'father_name' => $request -> input('father_name'),
@@ -262,12 +274,12 @@ class ProfilesController extends Controller
                 'email' => $request -> input('email'),
                 'certificate_id' => $request -> input('certificate_id'),
                 'certificate_details' => $request -> input('certificate_details'),
-                'jop_title_id' => $request -> input('jop_title_id'),
-                'position' => $request -> input('position'),
+                // 'jop_title_id' => $request -> input('jop_title_id'),
+                // 'position' => $request -> input('position'),
                 'volunteering_date' => $request -> input('volunteering_date'),
                 'hire_date' => $request -> input('hire_date'),
                 'full_name_en' => $request -> input('full_name_en'),
-                'position_en' => $request -> input('position_en'),
+                // 'position_en' => $request -> input('position_en'),
                 'shoes_size' => $request -> input('shoes_size'),
                 'waist_size' => $request -> input('waist_size'),
                 'shoulders_size' => $request -> input('shoulders_size'),
@@ -322,6 +334,11 @@ class ProfilesController extends Controller
         $po = Profile::find($id);
         $po -> delete();
         return redirect('profile') -> with('message', 'تم حذف الملف الشخصي بنجاح');
+    }
+
+    public function exportProfile(Request $request){
+        // dd($request);
+        return Excel::download(new ExportProfile, 'Hama-HR.xlsx');
     }
 
 }

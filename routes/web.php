@@ -66,3 +66,4 @@ route::post('update-password', 'Auth\ChangePasswordController@update_password') 
 route::get('/', 'DepartmentindexController@index');
 route::get('/upload/image', [ImageController::class,'ImageUpload'])->name('ImageUpload');
 Route::get('generate-pdf', [App\Http\Controllers\PDFController::class, 'generatePDF']);
+Route::get('/export-Profile',[ProfilesController::class,'exportProfile'])->middleware('isadmin')->name('export-Profiles');

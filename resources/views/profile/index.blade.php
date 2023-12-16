@@ -204,6 +204,9 @@
             {{-- </div> --}}
         </div>
     @endforeach
+    <div class="form-floating">
+        <a href="/export-Profile"><button type="button" class="btn btn-success block">تصدير إلى اكسل</button></a>
+      </div>
 </div>
     {{-- <div class="container">
         

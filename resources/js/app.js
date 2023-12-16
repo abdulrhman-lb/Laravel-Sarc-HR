@@ -11,7 +11,7 @@ $('#branch_id').on('change', function() {
             var sub_branch_Select = $('#sub_branch_id');
             sub_branch_Select.empty(); // تفريغ القائمة المنسدلة
             // إضافة الشعب إلى القائمة المنسدلة
-            sub_branch_Select.append('<option>-</option>');
+            sub_branch_Select.append('<option value="">-</option>');
             $.each(data, function(key, value) {
               sub_branch_Select.append('<option value="' + value.id + '">' + value.sub_branch +  ' - ' + value.sub_branch_en + '</option>');
             });
@@ -142,8 +142,7 @@ $(function() {
     });
   });
 
-
-
+ 
 
 
 const profileImageInput = document.getElementById("image");

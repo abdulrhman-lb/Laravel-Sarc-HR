@@ -4,7 +4,30 @@ git add .
 git commit -m "my changes" 
 git push -u origin master
 
+excel \
+=====================================================================================================
+composer require maatwebsite/excel 
 
+After installing the package we want to register the plugin’s service in providers and aliases.
+
+We want to write the following code into the config/app.php file:
+
+PHP
+<?php
+    'providers' => [ 
+      Maatwebsite\Excel\ExcelServiceProvider::class, ], 
+    'aliases' => [ 
+      'Excel' => 
+      Maatwebsite\Excel\Facades\Excel::class, ],
+?>
+To publish the above configuration execute the vendor:publish command:
+
+php artisan vendor:publish –provider=”Maatwebsite\Excel\ExcelServiceProvider” –tag=config
+
+This command is to create a new config file config/excel.php 
+
+
+=====================================================================================================
 for pdf ####################################################################################
 Laravel 10 Generate PDF File using DomPDF Example
 

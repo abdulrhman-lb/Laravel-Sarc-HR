@@ -28,7 +28,12 @@ class DepartmentController extends Controller
             'department'=>$request -> Input('department'),
             'department_en'=> $request -> input('department_en'),
             'department_short'=> $request -> input('department_short'),
-            'coordinator_id'=> 0
+            'department_address'=> $request -> input('department_address'),
+            'donor'=> $request -> input('donor'),
+            'department_information'=> $request -> input('department_information'),
+            'coordinator_name'=> $request -> input('coordinator_name'),
+            'coordinator_mobile'=> $request -> input('coordinator_mobile'),
+            'coordinator_email'=> $request -> input('coordinator_email'),
         ]);
         return redirect('const/department');
     }
@@ -55,7 +60,12 @@ class DepartmentController extends Controller
                 'department' => $request -> input('department'),
                 'department_en' => $request -> input('department_en'),
                 'department_short' => $request -> input('department_short'),
-                'coordinator_id'=> 0
+                'department_address'=> $request -> input('department_address'),
+                'donor'=> $request -> input('donor'),
+                'department_information'=> $request -> input('department_information'),
+                'coordinator_name'=> $request -> input('coordinator_name'),
+                'coordinator_mobile'=> $request -> input('coordinator_mobile'),
+                'coordinator_email'=> $request -> input('coordinator_email'),
             ]);
         return redirect('const/department') -> with('message', 'تم التعديل على القسم بنجاح');
     }

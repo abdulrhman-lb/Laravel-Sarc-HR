@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('department_id');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('position');
-            $table->string('position_en');
+            $table->string('position')->nullable();
+            $table->string('position_en')->nullable();
             $table->unsignedBigInteger('jop_title_id');
             $table->timestamps();
             $table->foreign('profile_id')->references('id')->on('Profiles');

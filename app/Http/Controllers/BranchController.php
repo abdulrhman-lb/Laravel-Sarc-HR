@@ -17,7 +17,7 @@ class BranchController extends Controller
         return view('const.branch.create');
     }
 
-    public function store(Request $request, string $course)
+    public function store(Request $request)
     {
         $request -> validate([
             'branch' => ['required', 'string', 'unique:branches'],

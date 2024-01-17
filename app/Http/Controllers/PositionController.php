@@ -32,8 +32,8 @@ class PositionController extends Controller
             'department_id' => ['required', 'min_digits:1'],
             'jop_title_id' => ['required', 'min_digits:1'],
             'start_date' => ['required', 'after:'.$position -> start_date],
-            'position' => ['required'],
-            'position_en' => ['required', 'string'],
+            // 'position' => ['required'],
+            // 'position_en' => ['required', 'string'],
         ]);
         Position::where('profile_id' , $request -> Input('profile_id'))->orderBy('end_date' , 'ASC')->first()
         ->update([

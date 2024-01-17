@@ -11,8 +11,10 @@
     <h5 class="d-flex fw-bold justify-content-center pb-1">قائمة الموظفين</h5>
     <div>
         <button type="button" class="fw-bold collapsible">تصفية حسب...</button>
+        {{-- //  تصفية بداية --}}
         <div class="content ">    
-            <form action="/profile" method="get" class="containerlist">
+            <form action="{{route('profile')}}" method="post" class="containerlist">
+                @csrf
 
                 <div class="row row-cols-lg-4 g-4 align-items-center mb-3 " style="width: 75%; float: right;">
 
@@ -145,15 +147,17 @@
                 <div class="row row-cols-lg-2 g-2 align-items-center mb-3" style="width: 100%; float: inline-start; justify-self: center;">
                     
                     <div class="col-12">
-                        <button type="submit" class="block">تطبيق عوامل التصفية والفرز</button>
+                        <button type="submit" class="block" >تطبيق عوامل التصفية والفرز</button>
                     </div>
 
                     <div class="col-12">
-                        <a href="/profile?br=&sb=&dp=&nm=&ln=&gn=&ms=&cf=&cd=&jt=&ac=-&sort=&order=asc"><button type="button" class="block">تصفير عوامل التصفية والفرز</button></a>
+                        <button type="submit" class="block" name="clear">تصفير عوامل التصفية والفرز</button>
                     </div>
                 </div>
             </form>
         </div>
+        {{-- //  تصفية نهاية --}}
+
     </div>
     @foreach ($lists['profiles'] as $profile)  
         @php

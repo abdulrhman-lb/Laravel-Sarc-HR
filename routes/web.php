@@ -26,6 +26,8 @@ use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TrainingTrainerController;
 use App\Http\Controllers\DepartmentindexController;
+use App\Http\Controllers\RewardController;
+use App\Http\Controllers\RewardNameController;
 use App\Http\Middleware\ActiveMiddleware;
 
 
@@ -34,7 +36,9 @@ Route::resource('/training', TrainingCourseController::class)->middleware('isadm
 Route::resource('/trainer', TrainingTrainerController::class)->middleware('isadmin');
 Route::resource('/trainee', TrainingTraineeController::class)->middleware('isadmin');
 Route::resource('/penalty', PenaltyController::class)->middleware('isadmin');
+Route::resource('/reward', RewardController::class)->middleware('isadmin');
 Route::resource('/position', PositionController::class)->middleware('isadmin');
+Route::post('/profile', [ProfilesController::class, 'index'])->middleware('auth', 'isactive', 'isadmin')->name('profile');
 
 Route::resource('/mytraining', DeleteTraininController::class);
 
@@ -48,6 +52,7 @@ route::put('conf/update/{id}',[ConfController::class,'update'])->middleware('aut
 route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
     route::resource('/branch',BranchController::class);
     route::resource('/penalty',PenaltyNameController::class);
+    route::resource('/reward',RewardNameController::class);
     route::resource('/subbranch',SubBranchController::class);
     route::resource('/certificate',CertificateController::class);
     route::resource('/gender',GenderController::class);

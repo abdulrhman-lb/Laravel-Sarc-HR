@@ -16,12 +16,17 @@
     @method('PUT')
     <div class="containerr">
       <img src="/images/{{$image1}}" class="img-pro my-4" id="image_preview">
-      <div class="middle">
+      <div class="middle  @error('image') is-invalid @enderror">
         <label>
           <span class="block" id="choose-image">تغيير الصورة</span>
           <input type="file" id="image" name="image" class="hidden-image">
         </label>
       </div>
+      @error('image')
+      <span class="invalid-feedback text-center" role="alert">
+          <strong>{{ $message }}</strong>
+      </span>
+      @enderror
     </div>
     
     <div class="row row-cols-lg-3 g-3 align-items-center mb-3">

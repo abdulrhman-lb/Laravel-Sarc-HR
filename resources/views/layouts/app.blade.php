@@ -14,6 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Tajawal" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
     <script src="https://kit.fontawesome.com/accc23eac4.js" crossorigin="anonymous"></script>
@@ -49,7 +50,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item text-right" href="/training?tn=&tp=&td=&sort=&order=asc">الدورات التدريبية</a></li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#">المكافئات</a></li>
+                                            <li><a class="dropdown-item" href="/reward">المكافئات</a></li>
                                             <li><a class="dropdown-item" href="/penalty">العقوبات</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/position">السيرة الهلال</a></li>
@@ -81,6 +82,7 @@
                                             <li><a class="dropdown-item" href="/const/training">جدول الدورات التدريبية</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/const/penalty">جدول العقوبات</a></li>
+                                            <li><a class="dropdown-item" href="/const/reward">جدول المكافئات</a></li>
                                         </ul>
                                     </li>
                                 @endif

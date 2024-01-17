@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportProfile;
+use App\Models\rewards;
+use Illuminate\Support\Facades\Storage;
 
 use function Laravel\Prompts\table;
 
@@ -32,34 +34,42 @@ class ProfilesController extends Controller
     public function index(Request $request)
     {
         if ((auth()->user()-> role == '1')) {
-            $active = $request->input('ac');
-            $query = Profile::query(); 
-            if ($active != '-') $query->whereHas('user', function ($query) use ($active)
-                {
-                    $query->where('active', $active);
-                });
-                if ($request->input('br')) {$query->where('branch_id', $request->input('br'));}
-                if ($request->input('sb')) {$query->where('sub_branch_id', $request->input('sb'));}
-                if ($request->input('dp')) {$query->where('department_id', $request->input('dp'));}
-                if ($request->input('nm')) {$query->where('first_name', 'like' , '%'.$request->input('nm').'%');}
-                if ($request->input('ln')) {$query->where('last_name', 'like' , '%'.$request->input('ln').'%');}
-                if ($request->input('gn')) {$query->where('gender_id', $request->input('gn'));}
-                if ($request->input('ms')) {$query->where('marital_status_id', $request->input('ms'));}
-                if ($request->input('cf')) {$query->where('certificate_id', $request->input('cf'));}
-                if ($request->input('cd')) {$query->where('certificate_details', 'like' , '%'.$request->input('cd').'%');}
-                if ($request->input('jt')) {$query->where('jop_title_id', $request->input('jt'));}
-                if ($request->input('sort')) {$query->orderby($request->input('sort'), $request->input('order'));}
-
-            session(['branch_id' => $request->input('br'),
-                     'sub_branch_id' => $request->input('sb'),
-                     'department_id' => $request->input('dp'),
-                     'first_name' => $request->input('nm'),
-                     'last_name' => $request->input('ln'),
-                     'gender_id' => $request->input('gn'),
-                     'marital_status_id' => $request->input('ms'),
-                     'certificate_id' => $request->input('cf'),
-                     'certificate_details' => $request->input('cd'),
-                     'jop_title_id' => $request->input('jt')]);
+            if ($request->has('clear')) {
+                // إعادة تعيين القيم إلى الحالة الافتراضية
+                $request->replace([
+                    'br' => null,
+                    'sb' => null,
+                    'dp' => null,
+                    'nm' => null,
+                    'ln' => null,
+                    'gn' => null,
+                    'ms' => null,
+                    'cf' => null,
+                    'cd' => null,
+                    'jt' => null,
+                    'sort' => null,
+                    'ac' => null,
+                    ]);
+                    $query = Profile::orderby('id' ,'asc');
+                } else {
+                    $active = $request->input('ac');
+                    $query = Profile::query(); 
+                    if ($active != '-') $query->whereHas('user', function ($query) use ($active)
+                        {
+                            $query->where('active', $active);
+                        });
+                    if ($request->input('br')) {$query->where('branch_id', $request->input('br'));}
+                    if ($request->input('sb')) {$query->where('sub_branch_id', $request->input('sb'));}
+                    if ($request->input('dp')) {$query->where('department_id', $request->input('dp'));}
+                    if ($request->input('nm')) {$query->where('first_name', 'like' , '%'.$request->input('nm').'%');}
+                    if ($request->input('ln')) {$query->where('last_name', 'like' , '%'.$request->input('ln').'%');}
+                    if ($request->input('gn')) {$query->where('gender_id', $request->input('gn'));}
+                    if ($request->input('ms')) {$query->where('marital_status_id', $request->input('ms'));}
+                    if ($request->input('cf')) {$query->where('certificate_id', $request->input('cf'));}
+                    if ($request->input('cd')) {$query->where('certificate_details', 'like' , '%'.$request->input('cd').'%');}
+                    if ($request->input('jt')) {$query->where('jop_title_id', $request->input('jt'));}
+                    if ($request->input('sort')) {$query->orderby($request->input('sort'), $request->input('order'));}
+                }
             $par = ['branches' => branch::orderBy('branch' , 'ASC')->get(),
                     'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
                     'departments' => department::orderBy('department' , 'ASC')->get(),
@@ -131,12 +141,13 @@ class ProfilesController extends Controller
             'jop_title_id' => ['required', 'min_digits:1'],
             'volunteering_date' => ['required', 'date'],
             'full_name_en' => ['required', 'string'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:512',
         ]);
         $slug = Str::slug($request->full_name_en, '-');
         if (is_null($request -> image)) {
             $NewImageName = '';
         } else {
-            $NewImageName =uniqid() . $slug . '.' . $request->image->extension();
+            $NewImageName = $slug . '.' . $request->image->extension();
             $request -> image ->move(public_path('images/profiles'), $NewImageName);
         }
         Profile::create([
@@ -207,12 +218,15 @@ class ProfilesController extends Controller
                             ->with(['training_course', 'training_course.training', 'training_course.training_trainer.trainer']);
                 $penalties = penalty::where('profile_id', ($profileID->id))
                             ->with(['penalty_name']);
+                $rewards = rewards::where('profile_id', ($profileID->id))
+                            ->with(['reward_name']);
                 $positions = Position::where('profile_id', ($profileID->id))
                             ->with(['department','jop_title']);
 
                 $pro = ['profiles' => Profile::where('user_id', $id)->first(),
                         'trainees' => $trainees->get(),
                         'penalties' => $penalties->get(),
+                        'rewards' => $rewards->get(),
                         'positions' => $positions->orderBy('start_date' , 'ASC')->get(),
                         ];
                 return view('profile.show')->with('lists' , $pro);
@@ -241,7 +255,6 @@ class ProfilesController extends Controller
         $request -> validate([
             'branch_id' => ['required', 'min_digits:1'],
             'sub_branch_id' => ['required', 'min_digits:1'],
-            // 'department_id' => ['required', 'min_digits:1'],
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
             'father_name' => ['required', 'string'],
@@ -256,9 +269,9 @@ class ProfilesController extends Controller
             'phone' => ['digits:10'],
             'email' => 'required|email|unique:Profiles,email,' . $pro->id,
             'certificate_id' => ['required', 'min_digits:1'],
-            // 'jop_title_id' => ['required', 'min_digits:1'],
             'volunteering_date' => ['required', 'date'],
             'full_name_en' => ['required', 'string'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:512',
         ]);
         $slug = Str::slug($request->full_name_en, '-');
         
@@ -268,7 +281,6 @@ class ProfilesController extends Controller
                 'branch_id'=>$request -> Input('branch_id'),
                 'sub_branch_id'=> $request -> input('sub_branch_id'),
                 'point' => $request -> input('point'),
-                // 'department_id' => $request -> input('department_id'),
                 'first_name' => $request -> input('first_name'),
                 'last_name' => $request -> input('last_name'),
                 'father_name' => $request -> input('father_name'),
@@ -284,26 +296,25 @@ class ProfilesController extends Controller
                 'email' => $request -> input('email'),
                 'certificate_id' => $request -> input('certificate_id'),
                 'certificate_details' => $request -> input('certificate_details'),
-                // 'jop_title_id' => $request -> input('jop_title_id'),
-                // 'position' => $request -> input('position'),
                 'volunteering_date' => $request -> input('volunteering_date'),
                 'hire_date' => $request -> input('hire_date'),
                 'full_name_en' => $request -> input('full_name_en'),
-                // 'position_en' => $request -> input('position_en'),
                 'shoes_size' => $request -> input('shoes_size'),
                 'waist_size' => $request -> input('waist_size'),
                 'shoulders_size' => $request -> input('shoulders_size'),
                 'slug' => $slug
             ]);
         } else {
-            $NewImageName =uniqid() . $slug . '.' . $request->image->extension();
+            if ($pro->image) {
+                Storage::delete(public_path('images/profiles'), $pro->image);
+            }
+            $NewImageName =$slug . '.' . $request->image->extension();
             $request -> image ->move(public_path('images/profiles'), $NewImageName);
             profile::where('user_id', $id)
             ->update([
                 'branch_id'=>$request -> Input('branch_id'),
                 'sub_branch_id'=> $request -> input('sub_branch_id'),
                 'point' => $request -> input('point'),
-                // 'department_id' => $request -> input('department_id'),
                 'first_name' => $request -> input('first_name'),
                 'last_name' => $request -> input('last_name'),
                 'father_name' => $request -> input('father_name'),
@@ -319,12 +330,9 @@ class ProfilesController extends Controller
                 'email' => $request -> input('email'),
                 'certificate_id' => $request -> input('certificate_id'),
                 'certificate_details' => $request -> input('certificate_details'),
-                // 'jop_title_id' => $request -> input('jop_title_id'),
-                // 'position' => $request -> input('position'),
                 'volunteering_date' => $request -> input('volunteering_date'),
                 'hire_date' => $request -> input('hire_date'),
                 'full_name_en' => $request -> input('full_name_en'),
-                // 'position_en' => $request -> input('position_en'),
                 'shoes_size' => $request -> input('shoes_size'),
                 'waist_size' => $request -> input('waist_size'),
                 'shoulders_size' => $request -> input('shoulders_size'),

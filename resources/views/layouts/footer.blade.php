@@ -34,9 +34,14 @@
     <!-- Grid container -->
   
     <!-- Copyright -->
-    <div class="text-center p-3 " style="background-color: rgba(209, 231, 211, 1); ">
-      © 2023 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/">SARC</a>
+    
+    <div class="text-center p-3 fw-bold" style="background-color: rgba(209, 231, 211, 1); ">
+      Developed by : Abdulrhman Al-lbabidi
+      <br>
+     SARC - Hama Branch - IT Coordinator 
+     <br>
+     Mob : +963 958793236  | E-mail :
+      <a href="mailto:abdulrhman.lb2@gmail.com">abdulrhman.lb2@gmail.com</a>
     </div>
     <!-- Copyright -->
   </footer>

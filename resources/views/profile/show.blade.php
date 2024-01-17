@@ -176,7 +176,7 @@
     </tr>
   </table>
 
-
+{{-- // الدورات التدريبية --}}
   <table class="table table-bordered mt-3">
     <tr>
         <th class="centered-content header-tables" colspan="8">الدورات التدريبيبة المتبعة</th>
@@ -229,6 +229,38 @@
     @endforeach
   </table>
 
+
+{{-- // المكافئات --}}
+  <table class="table table-bordered mt-3">
+    <tr>
+        <th class="centered-content header-tables" colspan="8">المكافئات</th>
+    </tr>
+    <tr>
+        <th class="centered-content">#</th>
+        <th class="centered-content">المكافئة</th>
+        <th class="centered-content">تاريخ المكافئة</th>
+        <th class="centered-content">مصدر المكافئة</th>
+        <th class="centered-content">سبب المكافئة</th>
+    </tr>
+    @php
+        $count = 0;
+    @endphp
+    @foreach ($lists['rewards'] as $reward)        
+        <tr class="pt-3 ">
+            @php
+                $count++;
+            @endphp
+            <td class="fw-bold centered-content">{{$count}}</td>
+            <td class="centered-content">{{$reward-> reward_name -> reward_name}}</td>
+            <td class="centered-content">{{$reward-> reward_date}}</td>
+            <td class="centered-content">{{$reward-> reward_source}}</td>
+            <td class="centered-content">{{$reward-> reward_reason}}</td>
+        </tr>
+    @endforeach
+  </table>
+
+
+{{-- // العقوبات --}}
   <table class="table table-bordered mt-3">
     <tr>
         <th class="centered-content header-tables" colspan="8">العقوبات</th>
@@ -257,6 +289,8 @@
     @endforeach
   </table>
 
+
+{{-- // السيرة الهلالية --}}
   <table class="table table-bordered mt-3">
     <tr>
         <th class="header-tables centered-content " colspan="8">السيرة الهلالية</th>
@@ -294,6 +328,8 @@
         </tr>
     @endforeach
   </table>
+
+
   <div class="form-floating">
     <a href="/profile/{{$lists['profiles'] -> user_id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
   </div>

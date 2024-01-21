@@ -40,7 +40,7 @@
 
             <div class="col-12">
                 <label class="m-2">تاريخ مكافئة</label>
-                <input type="text" class="form-control @error('reward_date') is-invalid @enderror" id="reward_date" name="reward_date" value="{{$lists['rewards'] -> reward_date }}">
+                <input type="text" class="form-control @error('reward_date') is-invalid @enderror" id="reward_date" name="reward_date" value="{{date('d-m-Y', strtotime($lists['rewards'] -> reward_date))}}">
                 @error('penalty_date')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

@@ -199,9 +199,13 @@
                     @csrf
                     @method("DELETE")
                     <a href="/profile/{{$profile -> user_id}}"><button type="button" class="btn btn-primary my-1"><i class="fa fa-eye"></i></button></a>
-                    <a href="/profile/{{$profile -> user_id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
-                    <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الملف الشخصي ؟')"><i class="fa fa-trash"></i></button>  
-                    <a href="conf/{{$profile -> user_id}}"><button type="button" class="btn btn-info my-1"><i class="fa fa-user"></i></button></a>
+                    @if ((auth()->user()-> role == '1') || (auth()->user()-> role == '3'))
+                        <a href="/profile/{{$profile -> id}}/edit"><button type="button" class="btn btn-success my-1"><i class="fa fa-edit"></i></button></a>
+                        <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الملف الشخصي ؟')"><i class="fa fa-trash"></i></button>  
+                    @endif
+                    @if (auth()->user()-> role == '1')
+                        <a href="conf/{{$profile -> user_id}}"><button type="button" class="btn btn-info my-1"><i class="fa fa-user"></i></button></a>
+                    @endif
                 </form> 
             </div>
             {{-- <div class="pe-2"> --}}

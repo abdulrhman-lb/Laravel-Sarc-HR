@@ -11,7 +11,10 @@
             <label for="formGroupExampleInput2" class="form-label">صلاحيات المستخدم</label>
             <select class="form-select" id="role" name="role">
                 <option value="0" {{$users -> role == '0'  ? 'selected' : ''}}>مستخدم عادي</option>
-                <option value="1" {{$users -> role == '1'  ? 'selected' : ''}}>مستخدم مدير</option>
+                <option value="1" {{$users -> role == '1'  ? 'selected' : ''}}>مدير النظام</option>
+                <option value="2" {{$users -> role == '2'  ? 'selected' : ''}}>منسق فريق</option>
+                <option value="3" {{$users -> role == '3'  ? 'selected' : ''}}>موظف موارد بشرية</option>
+                <option value="4" {{$users -> role == '4'  ? 'selected' : ''}}>موظف مالي</option>
             </select>
         </div>
         <div class="mb-3">

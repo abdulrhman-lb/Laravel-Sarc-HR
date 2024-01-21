@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Profile;
 use App\Models\reward_names;
 use App\Models\rewards;
@@ -34,7 +33,7 @@ class RewardController extends Controller
         rewards::create([
             'profile_id'=>$request -> Input('profile_id'),
             'reward_id'=>$request -> Input('reward_id'),
-            'reward_date'=>$request -> Input('reward_date'),
+            'reward_date'=>date('Y-m-d', strtotime($request -> Input('reward_date'))),
             'reward_source'=>$request -> Input('reward_source'),
             'reward_reason'=>$request -> Input('reward_reason'),
         ]);
@@ -68,7 +67,7 @@ class RewardController extends Controller
             ->update([
                 'profile_id'=>$request -> Input('profile_id'),
                 'reward_id'=>$request -> Input('reward_id'),
-                'reward_date'=>$request -> Input('reward_date'),
+                'reward_date'=>date('Y-m-d', strtotime($request -> Input('reward_date'))),
                 'reward_source'=>$request -> Input('reward_source'),
                 'reward_reason'=>$request -> Input('reward_reason'),
             ]);
@@ -81,5 +80,4 @@ class RewardController extends Controller
         $po -> delete();
         return redirect('reward') -> with('message', 'تم حذف المكافئة بنجاح');
     }
-
 }

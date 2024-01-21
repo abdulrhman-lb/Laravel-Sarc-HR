@@ -11,7 +11,7 @@
         $image1 = 'profiles/' . $lists['profiles'] -> image; 
     }
   @endphp
-  <form action="/profile/{{$lists['profiles'] -> user_id}}" method="POST" enctype="multipart/form-data">
+  <form action="/profile/{{$lists['profiles'] -> id}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="containerr">
@@ -157,7 +157,7 @@
 
       <div class="col-12">
         <label class="m-2">تاريخ الولادة</label>
-        <input type="text" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{$lists['profiles'] -> birth_date}}">
+        <input type="text" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{date('d-m-Y', strtotime($lists['profiles'] -> birth_date))}}">
         @error('birth_date')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -280,7 +280,7 @@
       
       <div class="col-12">
         <label class="m-2">تاريخ التطوع</label>
-        <input type="text" class="form-control @error('volunteering_date') is-invalid @enderror" id="volunteering_date" name="volunteering_date" value="{{$lists['profiles'] -> volunteering_date}}">
+        <input type="text" class="form-control @error('volunteering_date') is-invalid @enderror" id="volunteering_date" name="volunteering_date" value="{{date('d-m-Y', strtotime($lists['profiles'] -> volunteering_date))}}">
         @error('volunteering_date')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -290,7 +290,7 @@
 
       <div class="col-12">
         <label class="m-2">تاريخ التوظيف</label>
-        <input type="text" class="form-control" id="hire_date" name="hire_date" value="{{$lists['profiles'] -> hire_date}}">
+        <input type="text" class="form-control" id="hire_date" name="hire_date" value="{{$lists['profiles'] -> hire_date != null ? date('d-m-Y', strtotime($lists['profiles'] -> hire_date)) : null}}">
       </div>
 
       <div class="col-12 ">
@@ -321,7 +321,7 @@
       <div class="col-12 ">
         <label class="m-2">اختر مقاس الكتفين...</label>
         <select class="form-select " id="shoulders_size" name="shoulders_size">
-          <option value="-" {{$lists['profiles']-> shoulders_size == '-'  ? 'selected' : ''}}>-</option>
+          <option value="" {{$lists['profiles']-> shoulders_size == ''  ? 'selected' : ''}}>-</option>
           <option value="Small" {{$lists['profiles']-> shoulders_size == 'Small'  ? 'selected' : ''}}>Small</option>
           <option value="Medium" {{$lists['profiles']-> shoulders_size == 'Medium'  ? 'selected' : ''}}>Medium</option>
           <option value="Larg" {{$lists['profiles']-> shoulders_size == 'Larg'  ? 'selected' : ''}}>Larg</option>

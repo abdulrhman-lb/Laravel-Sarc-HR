@@ -17,8 +17,8 @@ class TrainingCourseController extends Controller
     {
         $training_name = $request->input('tn');
         $training_place = $request->input('tp');
-        $training_date_start1 = $request->input('td1'); 
-        $training_date_start2 = $request->input('td2'); 
+        $training_date_start1 = date('Y-m-d', strtotime($request->input('td1'))); 
+        $training_date_start2 = date('Y-m-d', strtotime($request->input('td2'))); 
         $sort = $request->input('sort');
         $order = $request->input('order');
 
@@ -94,12 +94,11 @@ class TrainingCourseController extends Controller
             'training_date_end' => ['required','after:training_date_start'],
             'training_days_number' => ['required'],
         ]);
-        // dd($request -> input('training_date_start'));
         training_course::create([
             'training_id'=>$request -> Input('training_id'),
             'training_place'=> $request -> input('training_place'),
-            'training_date_start' => $request -> input('training_date_start'),
-            'training_date_end' => $request -> input('training_date_end'),
+            'training_date_start' => date('Y-m-d', strtotime($request -> input('training_date_start'))),
+            'training_date_end' => date('Y-m-d', strtotime($request -> input('training_date_end'))),
             'training_days_number' => $request -> input('training_days_number'),
         ]);
         return redirect('training');
@@ -145,8 +144,8 @@ class TrainingCourseController extends Controller
             ->update([
                 'training_id'=>$request -> Input('training_id'),
                 'training_place'=> $request -> input('training_place'),
-                'training_date_start' => $request -> input('training_date_start'),
-                'training_date_end' => $request -> input('training_date_end'),
+                'training_date_start' => date('Y-m-d', strtotime($request -> input('training_date_start'))),
+                'training_date_end' => date('Y-m-d', strtotime($request -> input('training_date_end'))),
                 'training_days_number' => $request -> input('training_days_number'),
             ]);
         return redirect('training') -> with('message', 'تم التعديل على الدورة التدريبية بنجاح');

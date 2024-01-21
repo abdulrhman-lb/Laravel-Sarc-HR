@@ -55,8 +55,14 @@
 
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">اسم المنسق</label>
-            <input type="text" class="form-control @error('coordinator_name') is-invalid @enderror" id="coordinator_name" name="coordinator_name" value="{{ old('coordinator_name') }}">
-            @error('coordinator_name')
+            <input type="hidden" class="form-control @error('coordinator_name') is-invalid @enderror" id="coordinator_name" name="coordinator_name" value="{{ old('coordinator_name') }}">
+            <select class="form-select @error('coordinator_id') is-invalid @enderror" id="coordinator_id" name="coordinator_id">
+                <option value="">-</option>
+                @foreach ($profiles as $profile)
+                    <option value="{{$profile -> id}}" {{ $profile -> id == old('coordinator_id') ? 'selected' : ''}}>{{$profile -> first_name . '  ' . $profile -> last_name}}</option>
+                @endforeach
+            </select>
+            @error('coordinator_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -65,7 +71,7 @@
 
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">رقم جوال المنسق</label>
-            <input type="text" class="form-control @error('coordinator_mobile') is-invalid @enderror" id="coordinator_mobile" name="coordinator_mobile" value="{{ old('coordinator_mobile') }}">
+            <input readonly type="text" class="form-control @error('coordinator_mobile') is-invalid @enderror" id="coordinator_mobile" name="coordinator_mobile" value="{{ old('coordinator_mobile') }}">
             @error('coordinator_mobile')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -75,7 +81,7 @@
 
         <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">البريد الالكتروني للمنسق</label>
-            <input type="text" class="form-control @error('coordinator_email') is-invalid @enderror" id="coordinator_email" name="coordinator_email" value="{{ old('coordinator_email') }}">
+            <input readonly type="text" class="form-control @error('coordinator_email') is-invalid @enderror" id="coordinator_email" name="coordinator_email" value="{{ old('coordinator_email') }}">
             @error('coordinator_email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

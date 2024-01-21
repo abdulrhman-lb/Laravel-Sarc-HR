@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Models\department;
+use App\Models\Profile;
 
 class DepartmentController extends Controller
 {
@@ -14,7 +13,7 @@ class DepartmentController extends Controller
     }
     public function create()
     {
-        return view('const.department.create');
+        return view('const.department.create')->with('profiles', Profile::orderby('first_name', 'asc')->orderby('last_name', 'asc')->get());
     }
 
     public function store(Request $request)
@@ -32,6 +31,7 @@ class DepartmentController extends Controller
             'donor'=> $request -> input('donor'),
             'department_information'=> $request -> input('department_information'),
             'coordinator_name'=> $request -> input('coordinator_name'),
+            'coordinator_id'=> $request -> input('coordinator_id'),
             'coordinator_mobile'=> $request -> input('coordinator_mobile'),
             'coordinator_email'=> $request -> input('coordinator_email'),
         ]);
@@ -45,7 +45,9 @@ class DepartmentController extends Controller
     
     public function edit(string $id)
     {
-        return view('const.department.edit')->with('departments', department::where('id', $id)->first());
+        $par = ['departments' => department::where('id', $id)->first(),
+                'profiles' => Profile::where('department_id', $id)->get()];
+        return view('const.department.edit')->with('lists', $par);
     }
 
     public function update(Request $request, string $id)
@@ -64,6 +66,7 @@ class DepartmentController extends Controller
                 'donor'=> $request -> input('donor'),
                 'department_information'=> $request -> input('department_information'),
                 'coordinator_name'=> $request -> input('coordinator_name'),
+                'coordinator_id'=> $request -> input('coordinator_id'),
                 'coordinator_mobile'=> $request -> input('coordinator_mobile'),
                 'coordinator_email'=> $request -> input('coordinator_email'),
             ]);
@@ -75,5 +78,12 @@ class DepartmentController extends Controller
         $po = department::find($id);
         $po -> delete();
         return redirect('const/department') -> with('message', 'تم حذف القسم بنجاح');
+    }
+
+    public function getcoordinator(Request $request)
+    {
+        $coordinatorID = $request->id;
+        $coordinator = Profile::where('id', $coordinatorID)->first();
+        return response()->json($coordinator);
     }
 }

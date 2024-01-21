@@ -35,7 +35,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ بدء الدورة</label>
-          <input type="text" class="form-control @error('training_date_start') is-invalid @enderror" id="training_date_start" name="training_date_start" value="{{ old('training_date_start') }}">
+          <input type="text" class="form-control @error('training_date_start') is-invalid @enderror" id="training_date_start" name="training_date_start" value="{{old('training_date_start') != null ? date('d-m-Y', strtotime(old('training_date_start'))) : null}}">
           @error('training_date_start')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ نهاية الدورة </label>
-          <input type="text" class="form-control @error('training_date_end') is-invalid @enderror" id="training_date_end" name="training_date_end" value="{{ old('training_date_end') }}">
+          <input type="text" class="form-control @error('training_date_end') is-invalid @enderror" id="training_date_end" name="training_date_end" value="{{old('training_date_end') != null ? date('d-m-Y', strtotime(old('training_date_end'))) : null}}">
           @error('training_date_end')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

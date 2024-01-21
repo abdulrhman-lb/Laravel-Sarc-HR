@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\department;
+use App\Models\leave_names;
+use App\Models\Profile;
 
 class DepartmentindexController extends Controller
 {
@@ -12,7 +14,25 @@ class DepartmentindexController extends Controller
      */
     public function index()
     {
-        return view('index')->with('departments', department::all());
+        // $approve = Profile::where('user_id', auth()->user()->id)->first();
+        // $test = 0;
+        // $hr_approve = leave_names::where('hr_approve_id', $approve -> id)->get();
+        // if (!$hr_approve->isEmpty()) {
+        //     $test = 1;
+        // }
+
+        // $mang_approve = leave_names::where('mang_approve_id', $approve -> id)->get();
+        // if (!$mang_approve->isEmpty()) {
+        //     $test = 1;
+        // }
+
+        // $coor_approve = department::where('coordinator_id', $approve -> id)->get();
+        // if (!$coor_approve->isEmpty()) {
+        //     $test = 1;
+        // }
+
+        // return view('index')->with('approve', $test);
+        return view('index');
     }
 
     /**

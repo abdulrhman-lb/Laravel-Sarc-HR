@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('mobile_phone', 10)->unique();
             $table->string('phone', 10)->nullable();
             $table->unsignedBigInteger('certificate_id');
-            $table->string('certificate_details');
+            $table->string('certificate_details')->nullable();
             $table->unsignedBigInteger('jop_title_id');
             $table->string('position')->nullable();
             $table->date('volunteering_date');
@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('position_en')->nullable();
             $table->integer('shoes_size')->nullable();
             $table->integer('waist_size')->nullable();
+            $table->integer('leave_day')->default(0);
             $table->enum('shoulders_size', ['Small', 'Medium', 'Larg', 'XLarge', 'XXLarge'])->nullable();
             $table->string('image')->nullable();
             $table->string('slug');

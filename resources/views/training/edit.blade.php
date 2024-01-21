@@ -35,7 +35,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ بدء الدورة</label>
-          <input type="text" class="form-control @error('training_date_start') is-invalid @enderror" id="training_date_start" name="training_date_start" value="{{$lists['training_courses'] -> training_date_start}}">
+          <input type="text" class="form-control @error('training_date_start') is-invalid @enderror" id="training_date_start" name="training_date_start" value="{{date('d-m-Y', strtotime($lists['training_courses'] -> training_date_start))}}">
           @error('training_date_start')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ نهاية الدورة </label>
-          <input type="text" class="form-control @error('training_date_end') is-invalid @enderror" id="training_date_end" name="training_date_end" value="{{$lists['training_courses'] -> training_date_end}}">
+          <input type="text" class="form-control @error('training_date_end') is-invalid @enderror" id="training_date_end" name="training_date_end" value="{{date('d-m-Y', strtotime($lists['training_courses'] -> training_date_end))}}">
           @error('training_date_end')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

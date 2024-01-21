@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('department');
             $table->string('department_en');
-            $table->string('department_short');
-            $table->string('department_address');
-            $table->string('donor');
-            $table->text('department_information');
-            $table->string('coordinator_name');
-            $table->string('coordinator_mobile');
-            $table->string('coordinator_email');
+            $table->string('department_short')->nullable();
+            $table->string('department_address')->nullable();
+            $table->string('donor')->nullable();
+            $table->text('department_information')->nullable();
+            $table->string('coordinator_id')->nullable();
+            $table->string('coordinator_name')->nullable();
+            $table->string('coordinator_mobile')->nullable();
+            $table->string('coordinator_email')->nullable();
             $table->timestamps();
         });
     }

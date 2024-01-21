@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\training_trainer;
 use App\Models\training_course;
@@ -55,10 +54,8 @@ class TrainingTrainerController extends Controller
     {
     }
 
-
     public function update(Request $request, string $id)
     {
-        //
     }
 
     public function destroy(string $id)

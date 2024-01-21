@@ -41,6 +41,11 @@
           <label class="m-2">اختر الشعبة...</label>
           <select class="form-select @error('sub_branch_id') is-invalid @enderror" id="sub_branch_id" name="sub_branch_id">
             <option>-</option>
+            @foreach ($lists['sub_branches'] as $sub_branch)
+              @if ($sub_branch -> branch_id == old('branch_id'))
+                <option value="{{$sub_branch -> id}}" {{ $sub_branch -> id == old('sub_branch_id') ? 'selected' : ''}}>{{$sub_branch -> sub_branch . ' - ' . $sub_branch -> sub_branch_en}}</option>
+              @endif
+            @endforeach
           </select>
           @error('sub_branch_id')
           <span class="invalid-feedback" role="alert">
@@ -150,7 +155,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ الولادة</label>
-          <input type="text" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ old('birth_date') }}">
+          <input type="text" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{old('birth_date') != null ? date('d-m-Y', strtotime(old('birth_date'))) : null}}">
           @error('birth_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -272,7 +277,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ التطوع</label>
-          <input type="text" class="form-control @error('volunteering_date') is-invalid @enderror" id="volunteering_date" name="volunteering_date" value="{{ old('volunteering_date') }}">
+          <input type="text" class="form-control @error('volunteering_date') is-invalid @enderror" id="volunteering_date" name="volunteering_date" value="{{old('volunteering_date') != null ? date('d-m-Y', strtotime(old('volunteering_date'))) : null}}">
           @error('volunteering_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -282,7 +287,7 @@
 
         <div class="col-12">
           <label class="m-2">تاريخ التوظيف</label>
-          <input type="text" class="form-control @error('hire_date') is-invalid @enderror" id="hire_date" name="hire_date" value="{{ old('hire_date') }}">
+          <input type="text" class="form-control @error('hire_date') is-invalid @enderror" id="hire_date" name="hire_date" value="{{old('hire_date') != null ? date('d-m-Y', strtotime(old('hire_date'))) : null}}">
           @error('hire_date')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

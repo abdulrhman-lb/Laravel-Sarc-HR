@@ -39,7 +39,7 @@
 
             <div class="col-12">
                 <label class="m-2">تاريخ المكافئة</label>
-                <input type="text" class="form-control @error('reward_date') is-invalid @enderror" id="reward_date" name="reward_date" value="{{ old('reward_date') }}">
+                <input type="text" class="form-control @error('reward_date') is-invalid @enderror" id="reward_date" name="reward_date" value="{{old('reward_date') != null ? date('d-m-Y', strtotime(old('reward_date'))) : null}}">
                 @error('reward_date')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

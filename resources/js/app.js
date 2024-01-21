@@ -18,6 +18,52 @@ $('#branch_id').on('change', function() {
           }
     });
   });
+
+  //دالة تحديث معلومات المنسق
+$('#coordinator_id').on('change', function() { 
+  var coordinator_id = $(this).val();
+  // استدعاء المعلومات المرتبطة بالمنسق باستخدام Ajax
+    $.ajax({
+      url: '/get-coodinator',
+      type: 'GET',
+      data: { id: coordinator_id },
+      success: function(data) {
+            var coordinator_name = $('#coordinator_name');
+            var coordinator_mobile = $('#coordinator_mobile');
+            var coordinator_email = $('#coordinator_email');
+            // إضافة معلومات المنسق
+            coordinator_name.val(null);
+            coordinator_mobile.val(null);
+            coordinator_email.val(null);
+            $.each(data, function(key, value) {
+              coordinator_name.val(data.first_name +  ' ' + data.last_name);
+              coordinator_mobile.val(data.mobile_phone);
+              coordinator_email.val(data.email);
+            });
+          }
+    });
+  });
+
+    //دالة تحديث معلومات الاجازات
+$('#leave_name_id').on('change', function() { 
+  var leave_name_id = $(this).val();
+  var profile_id = $('#profile_id').val();
+  // استدعاء المعلومات المرتبطة بالمنسق باستخدام Ajax
+    $.ajax({
+      url: '/get-leave',
+      type: 'GET',
+      data: { id: leave_name_id , profile_id: profile_id},
+      success: function(data) {
+            var leave_detaile = $('#leave_detaile');
+            // إضافة معلومات المنسق
+            leave_detaile.val(null);
+            $.each(data, function(key, value) {
+              $('#leave_detaile').text(value);
+            });
+          }
+    });
+  });
+  
   
   
   
@@ -74,15 +120,15 @@ $(function() {
     $('#birth_date').datepicker({
         autoclose: true,
         Clear: true,
-        format: 'yyyy-mm-dd',
-    });
+        format: 'dd-mm-yyyy',
+      });
   });
   
   $(function() {
     $('#hire_date').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
     });
   });
   
@@ -90,7 +136,8 @@ $(function() {
     $('#volunteering_date').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
+      altFormat: 'yyyy-mm-dd', // تحديد تنسيق الإرسال إلى قاعدة البيانات
     });
   });
   
@@ -98,7 +145,7 @@ $(function() {
     $('#training_date_start').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
     });
   });
   
@@ -106,7 +153,7 @@ $(function() {
     $('#training_date_end').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
     });
   });
 
@@ -114,7 +161,7 @@ $(function() {
     $('#training_date_start1').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
     });
   });
 
@@ -122,7 +169,7 @@ $(function() {
     $('#training_date_start2').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
     });
   });
 
@@ -130,7 +177,15 @@ $(function() {
     $('#penalty_date').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
+    });
+  });
+
+  $(function() {
+    $('#reward_date').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'dd-mm-yyyy',
     });
   });
 
@@ -138,11 +193,21 @@ $(function() {
     $('#start_date').datepicker({
       autoclose: true,
       Clear: true,
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
+    });
+  });
+
+  $(function() {
+    $('#end_date').datepicker({
+      autoclose: true,
+      Clear: true,
+      format: 'dd-mm-yyyy',
     });
   });
 
  
+
+  
 
 
 const profileImageInput = document.getElementById("image");

@@ -26,23 +26,29 @@ use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TrainingTrainerController;
 use App\Http\Controllers\DepartmentindexController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LeaveNameController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\RewardNameController;
 use App\Http\Middleware\ActiveMiddleware;
 
-
-Route::resource('/profile', ProfilesController::class)->middleware('auth', 'isactive', 'isadmin');
+Route::resource('/profile', ProfilesController::class);
 Route::resource('/training', TrainingCourseController::class)->middleware('isadmin');
 Route::resource('/trainer', TrainingTrainerController::class)->middleware('isadmin');
 Route::resource('/trainee', TrainingTraineeController::class)->middleware('isadmin');
 Route::resource('/penalty', PenaltyController::class)->middleware('isadmin');
 Route::resource('/reward', RewardController::class)->middleware('isadmin');
 Route::resource('/position', PositionController::class)->middleware('isadmin');
-Route::post('/profile', [ProfilesController::class, 'index'])->middleware('auth', 'isactive', 'isadmin')->name('profile');
+Route::resource('/leave', LeaveController::class);
+Route::post('/profilee', [ProfilesController::class, 'index'])->name('profile');
+Route::get('/leave-approve', [LeaveController::class, 'leave_approve'])->name('leave-approve');
+Route::get('/leave-done', [LeaveController::class, 'leave_done'])->name('leave-done');
 
 Route::resource('/mytraining', DeleteTraininController::class);
 
 route::get('/get-sub', 'SubBranchController@getsub');
+route::get('/get-coodinator', 'departmentController@getcoordinator');
+route::get('/get-leave', 'LeaveController@getleave');
 route::get('det', 'SubBranchController@det');
 Auth::routes();
 
@@ -53,6 +59,7 @@ route::prefix('const')->middleware('auth', 'isadmin')->group(function(){
     route::resource('/branch',BranchController::class);
     route::resource('/penalty',PenaltyNameController::class);
     route::resource('/reward',RewardNameController::class);
+    route::resource('/leave',LeaveNameController::class);
     route::resource('/subbranch',SubBranchController::class);
     route::resource('/certificate',CertificateController::class);
     route::resource('/gender',GenderController::class);

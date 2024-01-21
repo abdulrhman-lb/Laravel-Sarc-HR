@@ -13,7 +13,7 @@ class Profile extends Model
         'branch_id','sub_branch_id','point','department_id','first_name','last_name','father_name','mother_name','national_number',
         'gender_id','birth_place','birth_date','blood_group','marital_status_id','mobile_phone','phone','email','certificate_id',
         'certificate_details','position','volunteering_date','hire_date','full_name_en','position_en','shoes_size','waist_size',
-        'shoulders_size','image', 'user_id', 'jop_title_id','slug'
+        'shoulders_size','image', 'user_id', 'jop_title_id','slug', 'leave_day'
     ];
 
     public function department() {
@@ -62,5 +62,12 @@ class Profile extends Model
 
     public function position(){
         return $this->hasMany(position::class, 'profile_id');
+    }
+
+    public function hr_approve(){
+        return $this->hasMany(leave_names::class, 'hr_approve_id');
+    }
+        public function mang_approve(){
+            return $this->hasMany(leave_names::class, 'mang_approve_id');
     }
 }

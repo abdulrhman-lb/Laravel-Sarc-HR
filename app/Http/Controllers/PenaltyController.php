@@ -34,7 +34,7 @@ class PenaltyController extends Controller
         penalty::create([
             'profile_id'=>$request -> Input('profile_id'),
             'penalty_id'=>$request -> Input('penalty_id'),
-            'penalty_date'=>$request -> Input('penalty_date'),
+            'penalty_date'=> date('Y-m-d', strtotime($request -> Input('penalty_date'))),
             'penalty_source'=>$request -> Input('penalty_source'),
             'penalty_reason'=>$request -> Input('penalty_reason'),
         ]);
@@ -68,7 +68,7 @@ class PenaltyController extends Controller
             ->update([
                 'profile_id'=>$request -> Input('profile_id'),
                 'penalty_id'=>$request -> Input('penalty_id'),
-                'penalty_date'=>$request -> Input('penalty_date'),
+                'penalty_date'=>date('Y-m-d', strtotime($request -> Input('penalty_date'))),
                 'penalty_source'=>$request -> Input('penalty_source'),
                 'penalty_reason'=>$request -> Input('penalty_reason'),
             ]);

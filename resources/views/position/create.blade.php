@@ -74,7 +74,7 @@
 
             <div class="col-12">
                 <label class="m-2">تاريخ بدء العمل الجديد</label>
-                <input type="text" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date') }}">
+                <input type="text" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{old('start_date') != null ? date('d-m-Y', strtotime(old('start_date'))) : null}}">
                 @error('start_date')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

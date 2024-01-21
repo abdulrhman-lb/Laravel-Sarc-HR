@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\training_trainee;
 use App\Models\training_course;
@@ -10,7 +9,6 @@ use App\Models\Profile;
 
 class TrainingTraineeController extends Controller
 {
-
     public function index()
     {
     }
@@ -44,16 +42,13 @@ class TrainingTraineeController extends Controller
         ->where('training_trainees.training_course_id', $request -> Input('training_course_id'));
 
 
-    $par = ['trainees' => $trainees->get(),
-            'training_course' => training_course::where('id', $request -> Input('training_course_id'))->first(),
+        $par = ['trainees' => $trainees->get(),
+                'training_course' => training_course::where('id', $request -> Input('training_course_id'))->first(),
 
-    ];
-        return view('trainee.show')->with('lists', $par);
+        ];
+            return view('trainee.show')->with('lists', $par);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $trainees = DB::table('training_trainees')
@@ -73,20 +68,12 @@ class TrainingTraineeController extends Controller
         return view('trainee.show')->with('lists', $par);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     public function destroy(string $id)
@@ -96,6 +83,4 @@ class TrainingTraineeController extends Controller
         $po -> delete();
         return redirect('trainee/'.$course) -> with('message', 'تم حذف المتدرب من الدورة بنجاح');
     }
-
-
 }

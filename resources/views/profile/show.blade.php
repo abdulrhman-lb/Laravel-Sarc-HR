@@ -176,6 +176,87 @@
     </tr>
   </table>
 
+{{-- // الإجازات --}}
+<table class="table table-bordered mt-3">
+  <tr>
+      <th class="centered-content header-tables" colspan="9">الإجازات</th>
+  </tr>
+  <tr>
+      <th class="centered-content">#</th>
+      <th class="centered-content">نوع الإجازة</th>
+      <th class="centered-content">من تاريخ</th>
+      <th class="centered-content">إلى تاريخ</th>
+      <th class="centered-content">موافقة المنسق</th>
+      <th class="centered-content">موافقة الموارد البشرية</th>
+      <th class="centered-content">موافقة الإدارة</th>
+      @if ((auth()->user()-> role == '0') || (auth()->user()-> role == '1') || (auth()->user()-> role == '3'))
+      <th class="centered-content" colspan="3">
+        <form action="/leave/create" method="get">
+          <input type="hidden" name="id" value="{{$lists['profiles'] -> id}}">
+          <button type="submit" class="btn btn-success my-1">طلب إجازة</button>
+        </form>
+      </th>
+      @endif
+  </tr>
+  @php
+      $count = 0;
+  @endphp
+  @foreach ($lists['leaves'] as $leave)        
+      <tr class="pt-3 ">
+          @php
+              $count++;
+          @endphp
+          <td class="fw-bold centered-content ">{{$count}}</td>
+          <td class="centered-content">{{$leave -> leave_names -> leave_name}}</td>
+          <td class="centered-content">{{$leave -> start_date }}</td>
+          <td class="centered-content">{{$leave -> end_date }}</td>
+          <td class="centered-content">
+            @if ($leave -> coor_approved == null)
+              <label class="fw-bold text-danger">انتظار الموافقة</label>
+            @else
+              <label class="fw-bold text-success">مع الموافقة</label> 
+              <br>
+              <label class="fw-bold text-success">{{$leave -> coor -> first_name . ' ' . $leave -> coor -> last_name}}</label>
+            @endif
+          </td>
+
+          <td class="centered-content">
+            @if ($leave -> hr_approved == null)
+              <label class="fw-bold text-danger">انتظار الموافقة</label>
+            @else
+              <label class="fw-bold text-success">مع الموافقة</label> 
+              <br>
+              <label class="fw-bold text-success">{{$leave -> hr -> first_name . ' ' . $leave -> hr -> last_name}}</label>
+            @endif
+          </td>
+
+          <td class="centered-content">
+            @if ($leave -> mang_approved == null)
+              <label class="fw-bold text-danger">انتظار الموافقة</label>
+            @else
+              <label class="fw-bold text-success">مع الموافقة</label> 
+              <br>
+              <label class="fw-bold text-success">{{$leave -> mang -> first_name . ' ' . $leave -> mang -> last_name}}</label>
+            @endif
+          </td>
+          <td class="centered-content fw-bold {{(($leave -> coor_approved !== null) && ($leave -> hr_approved !== null) && ($leave -> mang_approved !== null)) ? 'text-success' : 'text-danger'}}">{{(($leave -> coor_approved !== null) && ($leave -> hr_approved !== null) && ($leave -> mang_approved !== null)) ? 'تم استكمال الموافقات' : 'لم تستكمل الموافقات بعد' }}</td>
+          @if ((auth()->user()-> role == '0') || (auth()->user()-> role == '1') || (auth()->user()->id == $lists['profiles']->user_id))
+            <td class="centered-content">
+              <form action="/leave/{{$leave -> id}}" method="POST">
+                @csrf
+                <input type="hidden" name="profile_id" value="{{$lists['profiles'] -> id}}">
+                @method("DELETE")
+                @if (($leave -> coor_approved == null) || ($leave -> hr_approved == null) || ($leave -> mang_approved == null))
+                <button type="submit" class="btn btn-danger my-1 " onclick ="return confirm('هل تريد بالتأكيد حذف هذه الإجازة ؟')"><i class="fa fa-trash"></i></button>  
+                @endif
+              </form>  
+            </td>
+          @endif
+        </td>
+      </tr>
+  @endforeach
+</table>
+
 {{-- // الدورات التدريبية --}}
   <table class="table table-bordered mt-3">
     <tr>
@@ -189,7 +270,9 @@
         <th class="centered-content">تاريخ نهاية التدريب</th>
         <th class="centered-content">عدد أيام التدريب</th>
         <th class="centered-content">المدربين</th>
-        <th class="centered-content" colspan="3"><a href="/mytraining?tr=0&pr={{$lists['profiles'] -> id}}"><button type="button" class="btn btn-success my-1">إضافة دورة جديدة</button></a></th>
+        @if ((auth()->user()-> role == '0') || (auth()->user()-> role == '1') || (auth()->user()-> role == '3') || (auth()->user()->id == $lists['profiles']->user_id))
+          <th class="centered-content" colspan="3"><a href="/mytraining?tr=0&pr={{$lists['profiles'] -> id}}"><button type="button" class="btn btn-success my-1">إضافة دورة جديدة</button></a></th>
+        @endif
     </tr>
     @php
         $count = 0;
@@ -218,13 +301,15 @@
               @endforeach
             </table>
           </td>
+          @if ((auth()->user()-> role == '0') || (auth()->user()-> role == '1') || (auth()->user()-> role == '3') || (auth()->user()->id == $lists['profiles']->user_id))
             <td class="centered-content">
               <form action="{{action('DeleteTraininController@destroy', $trainee -> id)}}" method="POST">
                   @csrf
                   @method("DELETE")
                   <button type="submit" class="btn btn-danger my-1" onclick ="return confirm('هل تريد بالتأكيد حذف هذا الدورة من الدورات المتبعة ؟')"><i class="fa fa-trash"></i></button>  
               </form>  
-          </td>
+            </td> 
+          @endif
         </tr>
     @endforeach
   </table>
@@ -331,7 +416,9 @@
 
 
   <div class="form-floating">
-    <a href="/profile/{{$lists['profiles'] -> user_id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>
+    @if ((auth()->user()-> role == '0') || (auth()->user()-> role == '1') || (auth()->user()-> role == '3') || (auth()->user()->id == $lists['profiles']->user_id))
+      <a href="/profile/{{$lists['profiles'] -> user_id}}/edit"><button type="button" class="block">تعديل الملف الشخصي</button></a>          
+    @endif
   </div>
 </div>
 @endsection

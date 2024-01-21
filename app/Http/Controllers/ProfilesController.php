@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Http\Controllers\Auth;
 use App\Models\Profile;
 use App\Models\branch;
 use App\Models\sub_branch;
@@ -16,24 +14,18 @@ use App\Models\certificate;
 use App\Models\User;
 use App\Models\penalty;
 use App\Models\Position;
-use App\Models\training_course;
-use App\Models\training;
 use App\Models\training_trainee;
-use Illuminate\Validation\Rule;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportProfile;
+use App\Models\leaves;
 use App\Models\rewards;
 use Illuminate\Support\Facades\Storage;
-
-use function Laravel\Prompts\table;
 
 class ProfilesController extends Controller
 {
     public function index(Request $request)
     {
-        if ((auth()->user()-> role == '1')) {
+        if ((auth()->user()-> role == '1') || (auth()->user()-> role == '2') || (auth()->user()-> role == '3')) {
             if ($request->has('clear')) {
                 // إعادة تعيين القيم إلى الحالة الافتراضية
                 $request->replace([
@@ -103,13 +95,13 @@ class ProfilesController extends Controller
             return redirect('/');
         }
         $par = ['branches' => branch::orderBy('branch' , 'ASC')->get(),
-        'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
-        'departments' => department::orderBy('department' , 'ASC')->get(),
-        'certificates' => certificate::get(),
-        'genders' => gender::get(),
-        'jop_titles' => jop_title::get(),
-        'marital_statuses' => marital_status::get(),
-        ];
+                'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
+                'departments' => department::orderBy('department' , 'ASC')->get(),
+                'certificates' => certificate::get(),
+                'genders' => gender::get(),
+                'jop_titles' => jop_title::get(),
+                'marital_statuses' => marital_status::get(),
+                ];
         $pro = Profile::where('user_id', auth()->user()->id)->first();
         if ($pro == null) {
             return view('profile.create')->with('lists' , $par);
@@ -135,7 +127,7 @@ class ProfilesController extends Controller
             'blood_group' => ['required', 'string'],
             'marital_status_id' => ['required', 'string'],
             'mobile_phone' => ['required', 'digits:10', 'unique:Profiles'],
-            'phone' => ['digits:10'],
+            'phone' => ['nullable','digits:10'],
             'email' => ['required', 'email', 'unique:Profiles'],
             'certificate_id' => ['required', 'min_digits:1'],
             'jop_title_id' => ['required', 'min_digits:1'],
@@ -162,7 +154,7 @@ class ProfilesController extends Controller
             'national_number' => $request -> input('national_number'),
             'gender_id' => $request -> input('gender_id'),
             'birth_place' => $request -> input('birth_place'),
-            'birth_date' => $request -> input('birth_date'),
+            'birth_date' => date('Y-m-d', strtotime($request -> input('birth_date'))),
             'blood_group' => $request -> input('blood_group'),
             'marital_status_id' => $request -> input('marital_status_id'),
             'mobile_phone' => $request -> input('mobile_phone'),
@@ -172,8 +164,8 @@ class ProfilesController extends Controller
             'certificate_details' => $request -> input('certificate_details'),
             'jop_title_id' => $request -> input('jop_title_id'),
             'position' => $request -> input('position'),
-            'volunteering_date' => $request -> input('volunteering_date'),
-            'hire_date' => $request -> input('hire_date'),
+            'volunteering_date' => date('Y-m-d', strtotime($request -> input('volunteering_date'))),
+            'hire_date' => date('Y-m-d', strtotime($request -> input('hire_date'))),
             'full_name_en' => $request -> input('full_name_en'),
             'position_en' => $request -> input('position_en'),
             'shoes_size' => $request -> input('shoes_size'),
@@ -206,10 +198,15 @@ class ProfilesController extends Controller
         if (!auth()->check()) {
             return redirect('/');
         }
+        // $profileID = Profile::where('user_id', $id)->first();
+        // if (!$profileID) {
+        //     return view('profile.redi') ;
+        // }
         if ((auth()->user()-> role == '0') && (auth()->user()->id != $id)) {
                 return redirect('/');
         } else {
             $pro = ['profiles' => Profile::where('user_id', $id)->first()];
+
             if ($pro['profiles'] == null) {
                 return view('profile.redi') ;
              } else {
@@ -222,11 +219,14 @@ class ProfilesController extends Controller
                             ->with(['reward_name']);
                 $positions = Position::where('profile_id', ($profileID->id))
                             ->with(['department','jop_title']);
+                $leaves = leaves::where('profile_id', ($profileID->id))->orderby('leave_name_id', 'asc')->orderby('start_date', 'asc')
+                            ->with(['leave_names', 'coor', 'hr', 'mang']);
 
                 $pro = ['profiles' => Profile::where('user_id', $id)->first(),
                         'trainees' => $trainees->get(),
                         'penalties' => $penalties->get(),
                         'rewards' => $rewards->get(),
+                        'leaves' => $leaves->get(),
                         'positions' => $positions->orderBy('start_date' , 'ASC')->get(),
                         ];
                 return view('profile.show')->with('lists' , $pro);
@@ -237,21 +237,21 @@ class ProfilesController extends Controller
     public function edit(string $id)
     {
         $par = ['branches' => branch::orderBy('branch' , 'ASC')->get(),
-        'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
-        'departments' => department::orderBy('department' , 'ASC')->get(),
-        'certificates' => certificate::get(),
-        'genders' => gender::get(),
-        'jop_titles' => jop_title::get(),
-        'marital_statuses' => marital_status::get(),
-        'profiles' => Profile::where('user_id', $id)->first()
-        ];
+                'sub_branches' => sub_branch::orderBy('sub_branch' , 'ASC')->get(), 
+                'departments' => department::orderBy('department' , 'ASC')->get(),
+                'certificates' => certificate::get(),
+                'genders' => gender::get(),
+                'jop_titles' => jop_title::get(),
+                'marital_statuses' => marital_status::get(),
+                'profiles' => Profile::where('id', $id)->first()
+                ];
         return view('profile.edit')->with('lists', $par);       
         
     }
     
     public function update(Request $request, string $id)
     {
-        $pro = Profile::where('user_id', $id)->first();
+        $pro = Profile::where('id', $id)->first();
         $request -> validate([
             'branch_id' => ['required', 'min_digits:1'],
             'sub_branch_id' => ['required', 'min_digits:1'],
@@ -259,88 +259,65 @@ class ProfilesController extends Controller
             'last_name' => ['required', 'string'],
             'father_name' => ['required', 'string'],
             'mother_name' => ['required', 'string'],
-            'national_number' => 'required|digits:11|numeric|unique:Profiles,national_number,' . $pro->id,
+            'national_number' => 'required|digits:11|numeric|unique:Profiles,national_number,' . $id,
             'gender_id' => ['required', 'min_digits:1'],
             'birth_place' => ['required', 'string'],
             'birth_date' => ['required', 'date'],
             'blood_group' => ['required', 'string'],
             'marital_status_id' => ['required', 'string'],
-            'mobile_phone' => 'required|digits:10|unique:Profiles,mobile_phone,' . $pro->id,
-            'phone' => ['digits:10'],
-            'email' => 'required|email|unique:Profiles,email,' . $pro->id,
+            'mobile_phone' => 'required|digits:10|unique:Profiles,mobile_phone,' . $id,
+            'phone' => ['nullable', 'digits:10'],
+            'email' => 'required|email|unique:Profiles,email,' . $id,
             'certificate_id' => ['required', 'min_digits:1'],
             'volunteering_date' => ['required', 'date'],
             'full_name_en' => ['required', 'string'],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:512',
         ]);
+        $birth_date = date('Y-m-d', strtotime($request -> input('birth_date'))) ;
+        $volunteering_date = date('Y-m-d', strtotime($request -> input('volunteering_date'))) ;
+        $hire_date = date('Y-m-d', strtotime($request -> input('hire_date'))) ;
         $slug = Str::slug($request->full_name_en, '-');
-        
-        if (is_null($request -> image)) {
-            profile::where('user_id', $id)
-            ->update([
-                'branch_id'=>$request -> Input('branch_id'),
-                'sub_branch_id'=> $request -> input('sub_branch_id'),
-                'point' => $request -> input('point'),
-                'first_name' => $request -> input('first_name'),
-                'last_name' => $request -> input('last_name'),
-                'father_name' => $request -> input('father_name'),
-                'mother_name' => $request -> input('mother_name'),
-                'national_number' => $request -> input('national_number'),
-                'gender_id' => $request -> input('gender_id'),
-                'birth_place' => $request -> input('birth_place'),
-                'birth_date' => $request -> input('birth_date'),
-                'blood_group' => $request -> input('blood_group'),
-                'marital_status_id' => $request -> input('marital_status_id'),
-                'mobile_phone' => $request -> input('mobile_phone'),
-                'phone' => $request -> input('phone'),
-                'email' => $request -> input('email'),
-                'certificate_id' => $request -> input('certificate_id'),
-                'certificate_details' => $request -> input('certificate_details'),
-                'volunteering_date' => $request -> input('volunteering_date'),
-                'hire_date' => $request -> input('hire_date'),
-                'full_name_en' => $request -> input('full_name_en'),
-                'shoes_size' => $request -> input('shoes_size'),
-                'waist_size' => $request -> input('waist_size'),
-                'shoulders_size' => $request -> input('shoulders_size'),
-                'slug' => $slug
-            ]);
-        } else {
+        profile::where('id', $id)
+        ->update([
+            'branch_id'=>$request -> Input('branch_id'),
+            'sub_branch_id'=> $request -> input('sub_branch_id'),
+            'point' => $request -> input('point'),
+            'first_name' => $request -> input('first_name'),
+            'last_name' => $request -> input('last_name'),
+            'father_name' => $request -> input('father_name'),
+            'mother_name' => $request -> input('mother_name'),
+            'national_number' => $request -> input('national_number'),
+            'gender_id' => $request -> input('gender_id'),
+            'birth_place' => $request -> input('birth_place'),
+            'birth_date' => $birth_date,
+            'blood_group' => $request -> input('blood_group'),
+            'marital_status_id' => $request -> input('marital_status_id'),
+            'mobile_phone' => $request -> input('mobile_phone'),
+            'phone' => $request -> input('phone'),
+            'email' => $request -> input('email'),
+            'certificate_id' => $request -> input('certificate_id'),
+            'certificate_details' => $request -> input('certificate_details'),
+            'volunteering_date' => $volunteering_date,
+            'hire_date' => $hire_date,
+            'full_name_en' => $request -> input('full_name_en'),
+            'shoes_size' => $request -> input('shoes_size'),
+            'waist_size' => $request -> input('waist_size'),
+            'shoulders_size' => $request -> input('shoulders_size'),
+            'slug' => $slug
+        ]);
+        if (!is_null($request -> image)) {
             if ($pro->image) {
                 Storage::delete(public_path('images/profiles'), $pro->image);
-            }
+                }
             $NewImageName =$slug . '.' . $request->image->extension();
             $request -> image ->move(public_path('images/profiles'), $NewImageName);
-            profile::where('user_id', $id)
-            ->update([
-                'branch_id'=>$request -> Input('branch_id'),
-                'sub_branch_id'=> $request -> input('sub_branch_id'),
-                'point' => $request -> input('point'),
-                'first_name' => $request -> input('first_name'),
-                'last_name' => $request -> input('last_name'),
-                'father_name' => $request -> input('father_name'),
-                'mother_name' => $request -> input('mother_name'),
-                'national_number' => $request -> input('national_number'),
-                'gender_id' => $request -> input('gender_id'),
-                'birth_place' => $request -> input('birth_place'),
-                'birth_date' => $request -> input('birth_date'),
-                'blood_group' => $request -> input('blood_group'),
-                'marital_status_id' => $request -> input('marital_status_id'),
-                'mobile_phone' => $request -> input('mobile_phone'),
-                'phone' => $request -> input('phone'),
-                'email' => $request -> input('email'),
-                'certificate_id' => $request -> input('certificate_id'),
-                'certificate_details' => $request -> input('certificate_details'),
-                'volunteering_date' => $request -> input('volunteering_date'),
-                'hire_date' => $request -> input('hire_date'),
-                'full_name_en' => $request -> input('full_name_en'),
-                'shoes_size' => $request -> input('shoes_size'),
-                'waist_size' => $request -> input('waist_size'),
-                'shoulders_size' => $request -> input('shoulders_size'),
-                'image' => $NewImageName,
-                'slug' => $slug
-            ]);
+            profile::where('id', $id)
+                ->update([
+                    'image' => $NewImageName,
+                ]);
         }
-        user::where('id', $id)
+        $pro = Profile::where('id', $id)->first();
+        user::where('id', $pro->user_id)
             ->update([
             'name' =>  $request -> input('first_name'). ' ' . $request -> input('last_name')
             ]);

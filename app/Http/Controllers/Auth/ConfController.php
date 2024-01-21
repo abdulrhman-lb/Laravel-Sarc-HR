@@ -17,10 +17,10 @@ class ConfController extends Controller
 
     public function update(Request $request, string $id)
     {
-        if ($request->password = null ) {
+        if ($request->password !== null ) {
             $request -> validate(['password' => ['min:8']]);
-    } 
-        if ($request->password = null ) {
+        } 
+        if ($request->password == null ) {
             user::where('id', $id)
                 ->update([
                     'active' => $request -> active,
@@ -33,7 +33,7 @@ class ConfController extends Controller
                 'role' => $request -> role,
                 'password' => Hash::make($request['password']),
             ]);
-            return redirect('/profile') -> with('message', 'تم تعديل بيانات المستخدم بنجاح');
         }
+        return redirect('/profile') -> with('message', 'تم تعديل بيانات المستخدم بنجاح');
     }
 }

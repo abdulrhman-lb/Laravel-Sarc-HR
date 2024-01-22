@@ -21,7 +21,13 @@ class TrainingCourseController extends Controller
         $training_date_start2 = date('Y-m-d', strtotime($request->input('td2'))); 
         $sort = $request->input('sort');
         $order = $request->input('order');
+        if ($training_date_start1 == '1970-01-01') {
+            $training_date_start1 = null;
+        }
 
+        if ($training_date_start2 == '1970-01-01') {
+            $training_date_start2 = null;
+        }
         $par = [
             'training_selected' => $training_name,
             'training_place_selected' => $training_place,
@@ -30,6 +36,7 @@ class TrainingCourseController extends Controller
             'sort_selected' => $sort,
             'order_selected' => $order,
             ];
+            // dd($training_date_start1);
         $lists = $par;
         if ($request->input('td1') || $request->input('td2')) {
             $validator = Validator::make($request->all(), [

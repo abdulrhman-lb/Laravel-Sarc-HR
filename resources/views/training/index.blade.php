@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-12">
                             <label class="m-2">التاريخ من</label>
-                            <input type="text" class="form-control  @error('td1') is-invalid @enderror" id="training_date_start1" name="td1" value="{{date('d-m-Y', strtotime($lists['training_date_start1_selected']))}}">
+                            <input type="text" class="form-control  @error('td1') is-invalid @enderror" id="training_date_start1" name="td1" value="{{$lists['training_date_start1_selected'] != null ? date('d-m-Y', strtotime($lists['training_date_start1_selected'])) : null}}">
                             @error('td1')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
  
                         <div class="col-12">
                             <label class="m-2">التاريخ إلى</label>
-                            <input type="text" class="form-control @error('td2') is-invalid @enderror" id="training_date_start2" name="td2" value="{{date('d-m-Y', strtotime($lists['training_date_start2_selected']))}}">
+                            <input type="text" class="form-control @error('td2') is-invalid @enderror" id="training_date_start2" name="td2" value="{{$lists['training_date_start2_selected'] != null ? date('d-m-Y', strtotime($lists['training_date_start2_selected'])) : null}}">
                             @error('td2')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
